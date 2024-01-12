@@ -1,0 +1,2 @@
+/** Use uppercase for the first letter, and lowercase for the rest. */
+export type ForceCapitalize<S extends string> = S extends `${infer First}${infer Last}` ? `${Uppercase<First>}${Lowercase<Last>}` : "";

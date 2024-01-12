@@ -1,0 +1,6 @@
+# All the usual stuff
+dist/**/*
+node_modules/**/*
+
+# VSCode users must create their own launch scripts (demonface)
+.vscode/**/*
