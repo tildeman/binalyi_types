@@ -1,17 +1,18 @@
 import * as Blockly from "blockly";
-
-import { primitiveTooltips as TOOLTIPS_BY_TYPE } from "./block_features/extensions/primitive_tooltips.js";
 import { dataConstructorInitalizeModel } from "./block_features/extensions/dc_initializemodel.js";
 import { dataConstructorUpdateShape } from "./block_features/extensions/dc_updateshape.js";
 import { blockDefs as BLOCK_DEFINITIONS } from "./block_features/block_definitions.js";
 import { updateShapeExtension } from "./block_features/extensions/update_shape.js";
 
+import { primitiveTooltips as TOOLTIPS_BY_TYPE } from "./block_features/extensions/primitive_tooltips.js";
 import { dataConstructorContextMenuMixin } from "./block_features/mixins/dc_contextmenu.js";
+import { primitiveUpdateTypeMixin } from "./block_features/mixins/primitive_updatetype.js";
+import { primitiveOnChangeMixin } from "./block_features/mixins/primitive_onchange.js";
 import { disconnectBlocksMixin } from "./block_features/mixins/disconnect_blocks.js";
+import { primitiveDefGetDefMixin } from "./block_features/mixins/primitive_dgd.js";
 import { typeContextMenuMixin } from "./block_features/mixins/type_contextmenu.js";
 import { dataConstructorDefGetDefMixin } from "./block_features/mixins/dc_dgd.js";
 import { dataConstructorRenameMixin } from "./block_features/mixins/dc_rename.js";
-import { primitiveOnChangeMixin } from "./block_features/mixins/primitive_onchange.js";
 import { typeRefGetDefMixin } from "./block_features/mixins/type_getdef.js";
 
 import { DataConstructorGetMutator } from "./block_features/mutators/dc_get.js";
@@ -22,7 +23,9 @@ import { TypeDefMutator } from "./block_features/mutators/type.js";
 export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray(BLOCK_DEFINITIONS);
 
 Blockly.Extensions.register("types_tooltip", Blockly.Extensions.buildTooltipForDropdown("TYPE", TOOLTIPS_BY_TYPE));
+Blockly.Extensions.registerMixin("primitive_dgd", primitiveDefGetDefMixin)
 Blockly.Extensions.registerMixin("primitive_onchange", primitiveOnChangeMixin)
+Blockly.Extensions.registerMixin("primitive_updatetype", primitiveUpdateTypeMixin)
 
 Blockly.Extensions.registerMutator(
 	"tuple_type_mutator", ProductTypeMutator,

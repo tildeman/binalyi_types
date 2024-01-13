@@ -104,8 +104,9 @@ export const blockDefs: FBlockDefinition[] = [
 		"style": "loop_blocks",
 		"extensions": [
 			"types_tooltip",
-			"primitive",
-			"primitive_onchange"
+			"primitive_dgd",
+			"primitive_onchange",
+			"primitive_updatetype"
 		],
 		"helpUrl": ""
 	},
