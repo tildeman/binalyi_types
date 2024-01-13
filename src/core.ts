@@ -10,9 +10,9 @@ import { ITypeModel, TypeKind } from "./models/interfaces/i_type_model.js";
 import { ObservableTypeModel } from "./models/observable_type_model.js";
 import { vomitMap } from "./utilities/debug_map.js";
 
-import { DataConstructorGetBlock } from "block_features/types/dc_get_block.js";
-import { DataConstructorBlock } from "block_features/types/dc_def_block.js";
-import { TypeBlock } from "block_features/types/type_block.js";
+import { DataConstructorGetBlock } from "./block_features/types/dc_get_block.js";
+import { DataConstructorBlock } from "./block_features/types/dc_def_block.js";
+import { TypeBlock } from "./block_features/types/type_block.js";
 
 // Some more type guards, and we're good to go!
 
@@ -248,7 +248,7 @@ export function identifyModelParams(model: ITypeModel | null) : (string | string
 
 export function removeType(workspace: TypeWorkspace, typeName: string): void {
 	// Step 1: dissociate all type blocks of the chosen type
-	const typeBuildList = workspace.getBlocksByType("types_type", false);
+	const typeBuildList = workspace.getBlocksByType("types_type", false) as TypeBlock[];
 	if (typeBuildList.every(isTypeBlock)) {
 		for (const typeBuildBlock of typeBuildList) {
 			if (typeBuildBlock.getTypeModel()?.getName() === typeName) {
@@ -260,8 +260,7 @@ export function removeType(workspace: TypeWorkspace, typeName: string): void {
 	
 	// Step 2: dissociate all data constructor defintions of the chosen type
 	// Step 3: dissociate all data constructor blocks of the chosen type
-	const dataConstructorBuildList =
-		workspace.getBlocksByType("types_dc_def", false);
+	const dataConstructorBuildList = workspace.getBlocksByType("types_dc_def", false) as DataConstructorBlock[];
 	if (dataConstructorBuildList.every(isDataConstructorBlock)) {
 		for (const dataConstructorBuildBlock of dataConstructorBuildList) {
 			if (dataConstructorBuildBlock.getFieldValue("TYPE") === typeName) {

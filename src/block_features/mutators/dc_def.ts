@@ -1,4 +1,4 @@
-import { ITypeModel } from "models/interfaces/i_type_model.js";
+import { ITypeModel } from "../../models/interfaces/i_type_model.js";
 import { BlockWithValueConnection } from "../../types/block_with_value_connection.js";
 import { DataConstructorBlock } from "../types/dc_def_block.js";
 import { Block, Connection, WorkspaceSvg, inputs } from "blockly";
