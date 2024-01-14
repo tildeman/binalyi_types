@@ -97,9 +97,9 @@ export class ObservableTypeModel implements ITypeModel {
 export const globalBaseModels = {
 	INT: new ObservableTypeModel("Int", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_INT"),
 	INTEGER: new ObservableTypeModel("Integer", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_INTEGER"),
-	FLOAT: new ObservableTypeModel("Float", TypeKind.Primitive, undefined, undefined, undefined, "FLOAT"),
-	DOUBLE: new ObservableTypeModel("Double", TypeKind.Primitive, undefined, undefined, undefined, "DOUBLE"),
-	CHAR: new ObservableTypeModel("Char", TypeKind.Primitive, undefined, undefined, undefined, "CHAR"),
-	BOOL: new ObservableTypeModel("Bool", TypeKind.Primitive, undefined, undefined, undefined, "BOOL"),
+	FLOAT: new ObservableTypeModel("Float", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_FLOAT"),
+	DOUBLE: new ObservableTypeModel("Double", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_DOUBLE"),
+	CHAR: new ObservableTypeModel("Char", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_CHAR"),
+	BOOL: new ObservableTypeModel("Bool", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_BOOL"),
 	UNIT: new ObservableTypeModel("()", TypeKind.Tuple, undefined, undefined, [], "SPECIAL_UNIT")
 }

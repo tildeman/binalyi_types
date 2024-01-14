@@ -106,7 +106,8 @@ export const blockDefs: FBlockDefinition[] = [
 			"types_tooltip",
 			"primitive_dgd",
 			"primitive_onchange",
-			"primitive_updatetype"
+			"primitive_updatetype",
+			"primitive_contextmenu"
 		],
 		"helpUrl": ""
 	},

@@ -7,7 +7,7 @@ export type PrimitiveTypes = ForceCapitalize<keyof typeof globalBaseModels>;
 export type PrimitiveUpdateTypeMixin = typeof primitiveUpdateTypeMixin;
 
 export const primitiveUpdateTypeMixin = {
-	updateType(this: PrimitiveBlock, typeName: PrimitiveTypes) {
-		this.model_ = globalBaseModels[toUpperCase(typeName)];
+	updateType(this: PrimitiveBlock, newValue: PrimitiveTypes) {
+		this.model_ = globalBaseModels[toUpperCase(newValue)];
 	}
 };

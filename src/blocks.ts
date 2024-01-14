@@ -6,6 +6,7 @@ import { updateShapeExtension } from "./block_features/extensions/update_shape.j
 
 import { primitiveTooltips as TOOLTIPS_BY_TYPE } from "./block_features/extensions/primitive_tooltips.js";
 import { dataConstructorContextMenuMixin } from "./block_features/mixins/dc_contextmenu.js";
+import { primitiveContextMenuMixin } from "./block_features/mixins/primitive_contextmenu.js";
 import { primitiveUpdateTypeMixin } from "./block_features/mixins/primitive_updatetype.js";
 import { primitiveOnChangeMixin } from "./block_features/mixins/primitive_onchange.js";
 import { disconnectBlocksMixin } from "./block_features/mixins/disconnect_blocks.js";
@@ -23,9 +24,11 @@ import { TypeDefMutator } from "./block_features/mutators/type.js";
 export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray(BLOCK_DEFINITIONS);
 
 Blockly.Extensions.register("types_tooltip", Blockly.Extensions.buildTooltipForDropdown("TYPE", TOOLTIPS_BY_TYPE));
-Blockly.Extensions.registerMixin("primitive_dgd", primitiveDefGetDefMixin)
-Blockly.Extensions.registerMixin("primitive_onchange", primitiveOnChangeMixin)
-Blockly.Extensions.registerMixin("primitive_updatetype", primitiveUpdateTypeMixin)
+Blockly.Extensions.registerMixin("primitive_dgd", primitiveDefGetDefMixin);
+Blockly.Extensions.registerMixin("primitive_onchange", primitiveOnChangeMixin);
+Blockly.Extensions.registerMixin("primitive_updatetype", primitiveUpdateTypeMixin);
+Blockly.Extensions.registerMixin("primitive_contextmenu", primitiveContextMenuMixin);
+
 
 Blockly.Extensions.registerMutator(
 	"tuple_type_mutator", ProductTypeMutator,
