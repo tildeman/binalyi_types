@@ -1,4 +1,4 @@
-import { BlockWithValueConnection } from "../../types/block_with_value_connection.js";
+import { BlockWithValueConnection } from "../../types/block_variants.js";
 import { Block, Connection, WorkspaceSvg, inputs } from "blockly";
 
 type ProductTypeBlock = Block & IProductTypeMutator;

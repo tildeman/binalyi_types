@@ -7,10 +7,10 @@ export class ObservableTypeModel implements ITypeModel {
 	private kind: TypeKind;
 	private typePlaceholders: string[];
 	private shouldFireEvents: boolean;
-	private readonly listElementType?: ITypeModel;
-	private readonly tupleElementTypes?: ITypeModel[];
+	private listElementType: ITypeModel | undefined;
+	private tupleElementTypes?: ITypeModel[];
 
-	constructor(
+	constructor (
 		name: string,
 		kind: TypeKind,
 		typePlaceholders?: string[],
@@ -49,6 +49,11 @@ export class ObservableTypeModel implements ITypeModel {
 
 	getListElementType(): ITypeModel | undefined {
 		return this.listElementType;
+	}
+
+	setListElementType(type: ITypeModel) {
+		this.listElementType = type;
+		return this;
 	}
 
 	getTupleElementTypes(): ITypeModel[] | undefined {
@@ -95,11 +100,11 @@ export class ObservableTypeModel implements ITypeModel {
  * These are not added into the type map.
  */
 export const globalBaseModels = {
-	INT: new ObservableTypeModel("Int", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_INT"),
-	INTEGER: new ObservableTypeModel("Integer", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_INTEGER"),
-	FLOAT: new ObservableTypeModel("Float", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_FLOAT"),
-	DOUBLE: new ObservableTypeModel("Double", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_DOUBLE"),
-	CHAR: new ObservableTypeModel("Char", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_CHAR"),
-	BOOL: new ObservableTypeModel("Bool", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_BOOL"),
-	UNIT: new ObservableTypeModel("()", TypeKind.Tuple, undefined, undefined, [], "SPECIAL_UNIT")
+	INT: new ObservableTypeModel("Int", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_INT") as ITypeModel,
+	INTEGER: new ObservableTypeModel("Integer", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_INTEGER") as ITypeModel,
+	FLOAT: new ObservableTypeModel("Float", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_FLOAT") as ITypeModel,
+	DOUBLE: new ObservableTypeModel("Double", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_DOUBLE") as ITypeModel,
+	CHAR: new ObservableTypeModel("Char", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_CHAR") as ITypeModel,
+	BOOL: new ObservableTypeModel("Bool", TypeKind.Primitive, undefined, undefined, undefined, "SPECIAL_BOOL") as ITypeModel,
+	UNIT: new ObservableTypeModel("()", TypeKind.Tuple, undefined, undefined, [], "SPECIAL_UNIT") as ITypeModel
 }

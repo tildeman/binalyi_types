@@ -24,6 +24,7 @@ export interface ITypeModel extends IObservable {
 
 	// list-specific properties
 	getListElementType(): ITypeModel | undefined;
+	setListElementType(type: ITypeModel): this;
 
 	// tuple-specific properties
 	getTupleElementTypes(): ITypeModel[] | undefined;

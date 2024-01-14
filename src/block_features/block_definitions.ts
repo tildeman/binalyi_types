@@ -35,6 +35,13 @@ export const blockDefs: FBlockDefinition[] = [
 			}
 		],
 		output: "type",
+		extensions: [
+			"list_getdef",
+			"list_initialize",
+			"list_onchange",
+			"list_updatetype",
+			"primitive_contextmenu"
+		],
 		style: "loop_blocks",
 		tooltip: "The list of whatever type.",
 		helpUrl: ""
@@ -149,6 +156,7 @@ export const blockDefs: FBlockDefinition[] = [
 		output: "type",
 		extensions: [
 			"placeholder_getdef",
+			"placeholder_initialize",
 			"placeholder_updatetype",
 			"placeholder_onchange",
 			"primitive_contextmenu"

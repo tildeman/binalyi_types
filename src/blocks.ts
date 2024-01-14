@@ -23,6 +23,11 @@ import { TypeDefMutator } from "./block_features/mutators/type.js";
 import { placeholderGetDefMixin } from "./block_features/mixins/ph_getdef.js";
 import { placeholderUpdateTypeMixin } from "./block_features/mixins/ph_updatetype.js";
 import { placeholderOnChangeMixin } from "./block_features/mixins/ph_onchange.js";
+import { listGetDefMixin } from "./block_features/mixins/list_getdef.js";
+import { listOnChangeMixin } from "./block_features/mixins/list_onchange.js";
+import { listUpdateTypeMixin } from "./block_features/mixins/list_updatetype.js";
+import { listInitialize } from "./block_features/extensions/list_initialize.js";
+import { placeholderInitialize } from "./block_features/extensions/ph_initialize.js";
 
 export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray(BLOCK_DEFINITIONS);
 
@@ -32,9 +37,15 @@ Blockly.Extensions.registerMixin("primitive_onchange", primitiveOnChangeMixin);
 Blockly.Extensions.registerMixin("primitive_updatetype", primitiveUpdateTypeMixin);
 Blockly.Extensions.registerMixin("primitive_contextmenu", primitiveContextMenuMixin);
 
+Blockly.Extensions.register("placeholder_initialize", placeholderInitialize);
 Blockly.Extensions.registerMixin("placeholder_getdef", placeholderGetDefMixin);
 Blockly.Extensions.registerMixin("placeholder_updatetype", placeholderUpdateTypeMixin);
 Blockly.Extensions.registerMixin("placeholder_onchange", placeholderOnChangeMixin);
+
+Blockly.Extensions.register("list_initialize", listInitialize);
+Blockly.Extensions.registerMixin("list_getdef", listGetDefMixin);
+Blockly.Extensions.registerMixin("list_onchange", listOnChangeMixin);
+Blockly.Extensions.registerMixin("list_updatetype", listUpdateTypeMixin);
 
 Blockly.Extensions.registerMutator(
 	"tuple_type_mutator", ProductTypeMutator,
