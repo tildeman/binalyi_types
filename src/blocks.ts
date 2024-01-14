@@ -21,7 +21,6 @@ import { ProductTypeMutator } from "./block_features/mutators/product_type.js";
 import { DataConstructorMutator } from "./block_features/mutators/dc_def.js";
 import { TypeDefMutator } from "./block_features/mutators/type.js";
 import { placeholderGetDefMixin } from "./block_features/mixins/ph_getdef.js";
-import { placeholderInitialize } from "./block_features/extensions/ph_initialize.js";
 import { placeholderUpdateTypeMixin } from "./block_features/mixins/ph_updatetype.js";
 import { placeholderOnChangeMixin } from "./block_features/mixins/ph_onchange.js";
 
@@ -33,7 +32,6 @@ Blockly.Extensions.registerMixin("primitive_onchange", primitiveOnChangeMixin);
 Blockly.Extensions.registerMixin("primitive_updatetype", primitiveUpdateTypeMixin);
 Blockly.Extensions.registerMixin("primitive_contextmenu", primitiveContextMenuMixin);
 
-Blockly.Extensions.register("placeholder_initialize", placeholderInitialize);
 Blockly.Extensions.registerMixin("placeholder_getdef", placeholderGetDefMixin);
 Blockly.Extensions.registerMixin("placeholder_updatetype", placeholderUpdateTypeMixin);
 Blockly.Extensions.registerMixin("placeholder_onchange", placeholderOnChangeMixin);

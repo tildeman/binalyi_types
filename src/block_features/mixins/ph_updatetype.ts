@@ -7,6 +7,6 @@ export type PlaceholderUpdateTypeMixin = typeof placeholderUpdateTypeMixin;
 
 export const placeholderUpdateTypeMixin = {
 	updateType(this: PlaceholderBlock, newValue: string) {
-		this.getModel()?.setName(newValue);
+		this.getModel().setName(newValue);
 	}
 };

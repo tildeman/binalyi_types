@@ -149,7 +149,6 @@ export const blockDefs: FBlockDefinition[] = [
 		output: "type",
 		extensions: [
 			"placeholder_getdef",
-			"placeholder_initialize",
 			"placeholder_updatetype",
 			"placeholder_onchange",
 			"primitive_contextmenu"
