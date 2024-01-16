@@ -1,6 +1,6 @@
-import { ITypeModel } from "../../models/interfaces/i_type_model.js";
-import { TypeWorkspace, TypeWorkspaceSvg } from "../../types/workspace_extensions.js";
-import { TypeBlock } from "../types/type_block.js";
+import { ITypeModel } from "../../../models/interfaces/i_type_model.js";
+import { TypeWorkspace, TypeWorkspaceSvg } from "../../../types/workspace_extensions.js";
+import { TypeBlock } from "../../types/type_block.js";
 
 export type TypeRefGetDefMixin = typeof typeRefGetDefMixin;
 

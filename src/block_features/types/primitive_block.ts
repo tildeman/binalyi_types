@@ -1,8 +1,8 @@
 import { Block } from "blockly";
-import { PrimitiveContextMenuMixin } from "../mixins/primitive_contextmenu.js";
-import { PrimitiveUpdateTypeMixin } from "../mixins/primitive_updatetype.js";
-import { PrimitiveOnChangeMixin } from "../mixins/primitive_onchange.js";
-import { PrimitiveGetDefMixin } from "../mixins/primitive_getdef.js";
+import { PrimitiveContextMenuMixin } from "../mixins/contextmenu.js";
+import { PrimitiveUpdateTypeMixin } from "../mixins/primitives/updatetype.js";
+import { PrimitiveOnChangeMixin } from "../mixins/primitives/onchange.js";
+import { PrimitiveGetDefMixin } from "../mixins/primitives/getdef.js";
 import { TypeWorkspace } from "../../types/workspace_extensions.js";
 
 export type PrimitiveBlock = Block & IPrimitiveMutator;

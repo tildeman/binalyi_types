@@ -15,7 +15,7 @@ export const blockDefs: FBlockDefinition[] = [
 			{
 				type: "input_value",
 				name: "TYPE",
-				check: "type"
+				check: "Type"
 			}
 		],
 		output: null,
@@ -31,10 +31,10 @@ export const blockDefs: FBlockDefinition[] = [
 			{
 				type: "input_value",
 				name: "SUBTYPE",
-				check: "type"
+				check: "Type"
 			}
 		],
-		output: "type",
+		output: "Type",
 		extensions: [
 			"list_getdef",
 			"list_initialize",
@@ -48,7 +48,7 @@ export const blockDefs: FBlockDefinition[] = [
 	},
 	{
 		type: "types_tuple",
-		output: "type",
+		output: "Type",
 		style: "loop_blocks",
 		tooltip: "A product type of different things.",
 		mutator: "tuple_type_mutator",
@@ -64,10 +64,10 @@ export const blockDefs: FBlockDefinition[] = [
 			{
 				type: "input_value",
 				name: "TYPE",
-				check: "type"
+				check: "Type"
 			}
 		],
-		output: "type",
+		output: "Type",
 		style: "loop_blocks",
 		tooltip: "The anonymous error type.",
 		helpUrl: ""
@@ -107,7 +107,7 @@ export const blockDefs: FBlockDefinition[] = [
 				]
 			}
 		],
-		output: "type",
+		output: "Type",
 		style: "loop_blocks",
 		extensions: [
 			"types_tooltip",
@@ -153,7 +153,7 @@ export const blockDefs: FBlockDefinition[] = [
 				text: "a"
 			}                                  
 		],
-		output: "type",
+		output: "Type",
 		extensions: [
 			"placeholder_getdef",
 			"placeholder_initialize",
@@ -194,7 +194,7 @@ export const blockDefs: FBlockDefinition[] = [
 	},
 	{
 		type: "types_type",
-		output: "type",
+		output: "Type",
 		style: "loop_blocks",
 		extensions: [
 			"disconnect_blocks_mixin",
@@ -207,7 +207,7 @@ export const blockDefs: FBlockDefinition[] = [
 	},
 	{
 		type: "types_dc_get",
-		output: "type",
+		output: "Type",
 		style: "loop_blocks",
 		extensions: [
 			"disconnect_blocks_mixin"

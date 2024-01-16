@@ -5,27 +5,27 @@ import { blockDefs as BLOCK_DEFINITIONS } from "./block_features/block_definitio
 import { updateShapeExtension } from "./block_features/extensions/update_shape.js";
 
 import { primitiveTooltips as TOOLTIPS_BY_TYPE } from "./block_features/extensions/primitive_tooltips.js";
-import { dataConstructorContextMenuMixin } from "./block_features/mixins/dc_contextmenu.js";
-import { primitiveContextMenuMixin } from "./block_features/mixins/primitive_contextmenu.js";
-import { primitiveUpdateTypeMixin } from "./block_features/mixins/primitive_updatetype.js";
-import { primitiveOnChangeMixin } from "./block_features/mixins/primitive_onchange.js";
+import { dataConstructorContextMenuMixin } from "./block_features/mixins/data_constructors/contextmenu.js";
+import { primitiveContextMenuMixin } from "./block_features/mixins/contextmenu.js";
+import { primitiveUpdateTypeMixin } from "./block_features/mixins/primitives/updatetype.js";
+import { primitiveOnChangeMixin } from "./block_features/mixins/primitives/onchange.js";
 import { disconnectBlocksMixin } from "./block_features/mixins/disconnect_blocks.js";
-import { primitiveGetDefMixin } from "./block_features/mixins/primitive_getdef.js";
-import { typeContextMenuMixin } from "./block_features/mixins/type_contextmenu.js";
-import { dataConstructorDefGetDefMixin } from "./block_features/mixins/dc_dgd.js";
-import { dataConstructorRenameMixin } from "./block_features/mixins/dc_rename.js";
-import { typeRefGetDefMixin } from "./block_features/mixins/type_getdef.js";
+import { primitiveGetDefMixin } from "./block_features/mixins/primitives/getdef.js";
+import { typeContextMenuMixin } from "./block_features/mixins/types/contextmenu.js";
+import { dataConstructorDefGetDefMixin } from "./block_features/mixins/data_constructors/getdef.js";
+import { dataConstructorRenameMixin } from "./block_features/mixins/data_constructors/rename.js";
+import { typeRefGetDefMixin } from "./block_features/mixins/types/getdef.js";
 
 import { DataConstructorGetMutator } from "./block_features/mutators/dc_get.js";
 import { ProductTypeMutator } from "./block_features/mutators/product_type.js";
 import { DataConstructorMutator } from "./block_features/mutators/dc_def.js";
 import { TypeDefMutator } from "./block_features/mutators/type.js";
-import { placeholderGetDefMixin } from "./block_features/mixins/ph_getdef.js";
-import { placeholderUpdateTypeMixin } from "./block_features/mixins/ph_updatetype.js";
-import { placeholderOnChangeMixin } from "./block_features/mixins/ph_onchange.js";
-import { listGetDefMixin } from "./block_features/mixins/list_getdef.js";
-import { listOnChangeMixin } from "./block_features/mixins/list_onchange.js";
-import { listUpdateTypeMixin } from "./block_features/mixins/list_updatetype.js";
+import { placeholderGetDefMixin } from "./block_features/mixins/placeholders/getdef.js";
+import { placeholderUpdateTypeMixin } from "./block_features/mixins/placeholders/updatetype.js";
+import { placeholderOnChangeMixin } from "./block_features/mixins/placeholders/onchange.js";
+import { listGetDefMixin } from "./block_features/mixins/lists/getdef.js";
+import { listOnChangeMixin } from "./block_features/mixins/lists/onchange.js";
+import { listUpdateTypeMixin } from "./block_features/mixins/lists/updatetype.js";
 import { listInitialize } from "./block_features/extensions/list_initialize.js";
 import { placeholderInitialize } from "./block_features/extensions/ph_initialize.js";
 

@@ -1,8 +1,8 @@
 import { Block } from "blockly";
 import { TypeWorkspace } from "../../types/workspace_extensions.js";
-import { PlaceholderGetDefMixin } from "../mixins/ph_getdef.js";
-import { PlaceholderUpdateTypeMixin } from "../mixins/ph_updatetype.js";
-import { PlaceholderOnChangeMixin } from "../mixins/ph_onchange.js";
+import { PlaceholderGetDefMixin } from "../mixins/placeholders/getdef.js";
+import { PlaceholderUpdateTypeMixin } from "../mixins/placeholders/updatetype.js";
+import { PlaceholderOnChangeMixin } from "../mixins/placeholders/onchange.js";
 
 export type PlaceholderBlock = Block & IPlaceholderMutator;
 interface IPlaceholderMutator extends PlaceholderGetDefMixin, PlaceholderUpdateTypeMixin, PlaceholderOnChangeMixin {

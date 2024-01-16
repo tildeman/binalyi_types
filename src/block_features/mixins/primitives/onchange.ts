@@ -1,8 +1,8 @@
 import { Events } from "blockly";
-import { isPrimitiveBlock } from "../../utilities/blocktype_filter.js";
-import { isBlockChange } from "../../utilities/event_filter.js";
-import { PrimitiveBlock } from "../types/primitive_block.js";
-import { PrimitiveTypes } from "./primitive_updatetype.js";
+import { isPrimitiveBlock } from "../../../utilities/blocktype_filter.js";
+import { isBlockChange } from "../../../utilities/event_filter.js";
+import { PrimitiveBlock } from "../../types/primitive_block.js";
+import { PrimitiveTypes } from "./updatetype.js";
 
 export type PrimitiveOnChangeMixin = typeof primitiveOnChangeMixin;
 

@@ -1,8 +1,8 @@
 import { Block } from "blockly";
 import { DisconnectBlocksMixin } from "../mixins/disconnect_blocks.js";
-import { TypeContextMenuMixin } from "../mixins/type_contextmenu.js";
+import { TypeContextMenuMixin } from "../mixins/types/contextmenu.js";
 import { TypeWorkspace } from "../../types/workspace_extensions.js";
-import { TypeRefGetDefMixin } from "../mixins/type_getdef.js";
+import { TypeRefGetDefMixin } from "../mixins/types/getdef.js";
 import { TypeMutatorType } from "../mutators/type.js";
 
 export type TypeBlock = Block & ITypeMutator;

@@ -1,6 +1,6 @@
-import { ITypeModel } from "../../models/interfaces/i_type_model.js";
-import { TypeWorkspaceSvg } from "../../types/workspace_extensions.js";
-import { ListBlock } from "../types/list_block.js";
+import { ITypeModel } from "../../../models/interfaces/i_type_model.js";
+import { TypeWorkspaceSvg } from "../../../types/workspace_extensions.js";
+import { ListBlock } from "../../types/list_block.js";
 
 export type ListGetDefMixin = typeof listGetDefMixin;
 

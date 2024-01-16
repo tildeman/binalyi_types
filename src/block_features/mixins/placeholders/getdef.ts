@@ -1,6 +1,6 @@
-import { TypeWorkspaceSvg } from "../../types/workspace_extensions.js";
-import { ITypeModel } from "../../models/interfaces/i_type_model.js";
-import { PlaceholderBlock } from "../types/placeholder_block.js";
+import { TypeWorkspaceSvg } from "../../../types/workspace_extensions.js";
+import { ITypeModel } from "../../../models/interfaces/i_type_model.js";
+import { PlaceholderBlock } from "../../types/placeholder_block.js";
 
 export type PlaceholderGetDefMixin = typeof placeholderGetDefMixin;
 

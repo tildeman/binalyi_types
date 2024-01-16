@@ -1,7 +1,7 @@
 import { ContextMenuOption, LegacyContextMenuOption } from "blockly/core/contextmenu_registry.js";
-import { DataConstructorBlock } from "../types/dc_def_block.js";
-import { TypeWorkspace } from "../../types/workspace_extensions.js";
-import { findLegalName, removeType } from "../../core.js";
+import { DataConstructorBlock } from "../../types/dc_def_block.js";
+import { TypeWorkspace } from "../../../types/workspace_extensions.js";
+import { findLegalName, removeType } from "../../../core.js";
 import { Block } from "blockly";
 
 // I want to call this a curried function, but this sounds like alien talk.

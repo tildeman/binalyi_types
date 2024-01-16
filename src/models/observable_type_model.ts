@@ -81,7 +81,7 @@ export class ObservableTypeModel implements ITypeModel {
 		return this;
 	}
 
-	setTypePlaceholder(typePlaceholders: string[]): this {
+	setTypePlaceholder(...typePlaceholders: string[]): this {
 		this.typePlaceholders = typePlaceholders;
 		return this;
 	}

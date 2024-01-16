@@ -1,5 +1,5 @@
-import { ParentTypeBlock } from "../../types/block_variants.js";
-import { PlaceholderBlock } from "../types/placeholder_block.js";
+import { ParentTypeBlock } from "../../../types/block_variants.js";
+import { PlaceholderBlock } from "../../types/placeholder_block.js";
 
 export type PlaceholderUpdateTypeMixin = typeof placeholderUpdateTypeMixin;
 

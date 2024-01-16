@@ -1,7 +1,7 @@
 import { ContextMenuOption, LegacyContextMenuOption } from "blockly/core/contextmenu_registry.js";
-import { TypeWorkspaceSvg } from "../../types/workspace_extensions.js";
-import { TypeBlock } from "../types/type_block.js";
-import { removeType } from "../../core.js";
+import { TypeWorkspaceSvg } from "../../../types/workspace_extensions.js";
+import { TypeBlock } from "../../types/type_block.js";
+import { removeType } from "../../../core.js";
 
 export type TypeContextMenuMixin = typeof typeContextMenuMixin;
 

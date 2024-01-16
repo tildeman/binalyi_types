@@ -1,4 +1,4 @@
-import { DataConstructorBlock } from "../types/dc_def_block.js";
+import { DataConstructorBlock } from "../../types/dc_def_block.js";
 
 export type DataConstructorRenameMixin = typeof dataConstructorRenameMixin;
 

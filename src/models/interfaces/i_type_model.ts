@@ -20,7 +20,7 @@ export interface ITypeModel extends IObservable {
 
 	addTypePlaceholder(typePlaceholder: string): this;
 	removeTypePlaceholder(typePlaceholder: string): this;
-	setTypePlaceholder(typePlaceholders: string[]): this;
+	setTypePlaceholder(...typePlaceholders: string[]): this;
 
 	// list-specific properties
 	getListElementType(): ITypeModel | undefined;

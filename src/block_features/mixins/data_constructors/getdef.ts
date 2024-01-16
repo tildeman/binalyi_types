@@ -1,6 +1,6 @@
-import { IDataConstructorModel } from "../../models/interfaces/i_data_constructor_model.js";
-import { DataConstructorBlock } from "../types/dc_def_block.js";
-import { TypeWorkspace } from "../../types/workspace_extensions.js";
+import { IDataConstructorModel } from "../../../models/interfaces/i_data_constructor_model.js";
+import { DataConstructorBlock } from "../../types/dc_def_block.js";
+import { TypeWorkspace } from "../../../types/workspace_extensions.js";
 
 export type DataConstructorDefGetDefMixin = typeof dataConstructorDefGetDefMixin;
 
