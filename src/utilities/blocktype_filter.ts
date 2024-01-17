@@ -1,6 +1,7 @@
 import { Block } from "blockly";
 import { PlaceholderBlock } from "../block_features/types/placeholder_block.js";
 import { PrimitiveBlock } from "../block_features/types/primitive_block.js";
+import { TupleBlock } from "../block_features/types/tuple_block.js";
 import { ListBlock } from "../block_features/types/list_block.js";
 
 export function isPrimitiveBlock(block: Block): block is PrimitiveBlock {
@@ -13,4 +14,8 @@ export function isPlaceholderBlock(block: Block): block is PlaceholderBlock {
 
 export function isListBlock(block: Block): block is ListBlock {
 	return block.type == "types_list";
+}
+
+export function isTupleBlock(block: Block): block is TupleBlock {
+	return block.type == "types_tuple";
 }

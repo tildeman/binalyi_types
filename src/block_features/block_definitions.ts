@@ -38,6 +38,7 @@ export const blockDefs: FBlockDefinition[] = [
 		extensions: [
 			"list_getdef",
 			"list_initialize",
+			"cascade_updates_mixin",
 			"list_onchange",
 			"list_updatetype",
 			"primitive_contextmenu"
@@ -51,10 +52,16 @@ export const blockDefs: FBlockDefinition[] = [
 		output: "Type",
 		style: "loop_blocks",
 		tooltip: "A product type of different things.",
-		mutator: "tuple_type_mutator",
 		extensions: [
-			"types_post_initialization"
+			"types_post_initialization",
+			"tuple_getdef",
+			"tuple_initialization",
+			"cascade_updates_mixin",
+			"tuple_onchange",
+			"tuple_updatetype",
+			"primitive_contextmenu"
 		],
+		mutator: "tuple_type_mutator",
 		helpUrl: ""
 	},
 	{
@@ -112,6 +119,7 @@ export const blockDefs: FBlockDefinition[] = [
 		extensions: [
 			"types_tooltip",
 			"primitive_dgd",
+			"cascade_updates_mixin",
 			"primitive_onchange",
 			"primitive_updatetype",
 			"primitive_contextmenu"
@@ -157,6 +165,7 @@ export const blockDefs: FBlockDefinition[] = [
 		extensions: [
 			"placeholder_getdef",
 			"placeholder_initialize",
+			"cascade_updates_mixin",
 			"placeholder_updatetype",
 			"placeholder_onchange",
 			"primitive_contextmenu"

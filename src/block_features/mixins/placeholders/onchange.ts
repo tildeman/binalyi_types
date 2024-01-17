@@ -8,11 +8,8 @@ export type PlaceholderOnChangeMixin = typeof placeholderOnChangeMixin;
 export const placeholderOnChangeMixin = {
 	onchange(this: PlaceholderBlock, p1: Events.Abstract) {
 		if (!isBlockChange(p1)) return;
-		if (p1.element != "field") return; // Not the element to respond to.
-		const block = this.workspace.getBlockById(p1.blockId || "");
-		if (!block) return; // Block went into bitbucket
-		if (!isPlaceholderBlock(block)) return; // Not the block we want
+		if (p1.blockId != this.id) return; // Block went into bitbucket
 		const typeName = p1.newValue as string;
-		block.updateType(typeName);
+		this.updateType(typeName);
 	}
 };

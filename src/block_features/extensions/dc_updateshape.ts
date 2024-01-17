@@ -40,5 +40,5 @@ export function dataConstructorUpdateShape(this: DataConstructorBlock) {
 		"TYPE");
 	const nameField = this.getField("NAME");
 	if (nameField) nameField.setValidator(rename);
-	this.updateShape_()
+	this.updateShape_();
 }

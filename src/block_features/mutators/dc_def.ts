@@ -52,7 +52,7 @@ export const DataConstructorMutator = {
 			}
 		}
 		this.itemCount_ = connections.length;
-		this.updateShape_()
+		this.updateShape_();
 
 		for (let i = 0; i < this.itemCount_; ++i) {
 			connections[i]?.reconnect(this, "DATA" + i);

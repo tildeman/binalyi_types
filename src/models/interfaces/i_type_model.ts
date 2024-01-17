@@ -16,7 +16,6 @@ export interface ITypeModel extends IObservable {
 	getKind(): TypeKind;
 
 	getTypePlaceholders(): string[];
-	getTypePlaceholder(index: number): string;
 
 	addTypePlaceholder(typePlaceholder: string): this;
 	removeTypePlaceholder(typePlaceholder: string): this;
@@ -28,4 +27,6 @@ export interface ITypeModel extends IObservable {
 
 	// tuple-specific properties
 	getTupleElementTypes(): ITypeModel[] | undefined;
+	setTupleElementTypes(...types: ITypeModel[]): this;
+	addTupleElementTypes(...types: ITypeModel[]): this;
 }

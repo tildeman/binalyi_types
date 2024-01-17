@@ -1,25 +1,29 @@
-import { BlockWithValueConnection } from "../../types/block_variants.js";
+import {
+	BlockWithValueConnection,
+	GetModelBlock,
+} from "../../types/block_variants.js";
 import { Block, Connection, WorkspaceSvg, inputs } from "blockly";
+import { TupleBlock } from "../types/tuple_block.js";
+import { isPlaceholderBlock } from "../../utilities/blocktype_filter.js";
+import { globalBaseModels } from "../../models/observable_type_model.js";
 
-type ProductTypeBlock = Block & IProductTypeMutator;
-interface IProductTypeMutator extends ProductTypeMutatorType {}
-type ProductTypeMutatorType = typeof ProductTypeMutator;
+export type TupleTypeMutatorType = typeof TupleTypeMutator;
 
-export const ProductTypeMutator = {
+export const TupleTypeMutator = {
 	itemCount_: 2,
 
-	saveExtraState: function(this: ProductTypeBlock) {
+	saveExtraState: function (this: TupleBlock) {
 		return {
-			"itemCount": this.itemCount_
+			itemCount: this.itemCount_,
 		};
 	},
 
-	loadExtraState: function(this: ProductTypeBlock, state: any) {
+	loadExtraState: function (this: TupleBlock, state: any) {
 		this.itemCount_ = state["itemCount"];
-		this.updateShape_()
+		this.updateShape_();
 	},
 
-	decompose: function(this: ProductTypeBlock, workspace: WorkspaceSvg) {
+	decompose: function (this: TupleBlock, workspace: WorkspaceSvg) {
 		const containerBlock = workspace.newBlock("types_mutator_container");
 		containerBlock.initSvg();
 		const stackInput = containerBlock.getInput("STACK");
@@ -34,7 +38,7 @@ export const ProductTypeMutator = {
 		return containerBlock;
 	},
 
-	compose: function(this: ProductTypeBlock, containerBlock: Block) {
+	compose: function (this: TupleBlock, containerBlock: Block) {
 		let itemBlock = containerBlock.getInputTargetBlock("STACK");
 		if (!itemBlock) return;
 		const connections: (Connection | null)[] = [];
@@ -43,8 +47,7 @@ export const ProductTypeMutator = {
 				itemBlock = itemBlock.getNextBlock();
 				continue;
 			}
-			connections.push(
-				(itemBlock as BlockWithValueConnection | null)?.valueConnection_ || null);
+			connections.push((itemBlock as BlockWithValueConnection | null)?.valueConnection_ || null);
 			itemBlock = itemBlock.getNextBlock();
 		}
 
@@ -55,34 +58,39 @@ export const ProductTypeMutator = {
 			}
 		}
 		this.itemCount_ = connections.length;
-		this.updateShape_()
+		this.updateShape_();
 
 		for (let i = 0; i < this.itemCount_; ++i) {
 			connections[i]?.reconnect(this, "ADD" + i);
 		}
 	},
 
-	saveConnections: function(this: ProductTypeBlock, containerBlock: Block) {
-		let itemBlock = containerBlock.getInputTargetBlock("STACK") as BlockWithValueConnection | null;
+	saveConnections: function (this: TupleBlock, containerBlock: Block) {
+		let itemBlock = containerBlock.getInputTargetBlock(
+			"STACK"
+		) as BlockWithValueConnection | null;
 		let i = 0;
+		const sourceBlocks: (GetModelBlock | null)[] = [];
 		while (itemBlock) {
 			if (itemBlock.isInsertionMarker()) {
 				itemBlock = itemBlock.getNextBlock() as BlockWithValueConnection | null;
 				continue;
 			}
 			const input = this.getInput("ADD" + i);
-			itemBlock.valueConnection_ = (input && input.connection?.targetConnection) || null;
+			itemBlock.valueConnection_ = input?.connection?.targetConnection || null;
+			sourceBlocks.push((input?.connection?.targetConnection?.getSourceBlock() || null) as GetModelBlock | null);
 			itemBlock = itemBlock.getNextBlock() as BlockWithValueConnection | null;
 			i++;
 		}
+
+		this.updateType(sourceBlocks);
 	},
 
-	updateShape_: function(this: ProductTypeBlock) {
+	updateShape_: function (this: TupleBlock) {
 		if (this.itemCount_ && this.getInput("EMPTY")) {
 			this.removeInput("EMPTY");
 			this.setTooltip("A product type of different things.");
-		}
-		else if (!this.itemCount_ && !this.getInput("EMPTY")) {
+		} else if (!this.itemCount_ && !this.getInput("EMPTY")) {
 			this.appendDummyInput("EMPTY").appendField("Unit");
 			this.setTooltip("The unit type (aka null, nil, none, etc.).");
 		}
@@ -90,8 +98,8 @@ export const ProductTypeMutator = {
 		for (let i = 0; i < this.itemCount_; ++i) {
 			if (!this.getInput("ADD" + i)) {
 				const input = this.appendValueInput("ADD" + i)
-								  .setAlign(inputs.Align.RIGHT)
-								  .setCheck("Type");
+					.setAlign(inputs.Align.RIGHT)
+					.setCheck("Type");
 				if (i === 0) {
 					input.appendField("Tuple of");
 				}
@@ -101,5 +109,5 @@ export const ProductTypeMutator = {
 		for (let i = this.itemCount_; this.getInput("ADD" + i); ++i) {
 			this.removeInput("ADD" + i);
 		}
-	}
+	},
 };

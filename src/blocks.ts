@@ -17,7 +17,7 @@ import { dataConstructorRenameMixin } from "./block_features/mixins/data_constru
 import { typeRefGetDefMixin } from "./block_features/mixins/types/getdef.js";
 
 import { DataConstructorGetMutator } from "./block_features/mutators/dc_get.js";
-import { ProductTypeMutator } from "./block_features/mutators/product_type.js";
+import { TupleTypeMutator } from "./block_features/mutators/product_type.js";
 import { DataConstructorMutator } from "./block_features/mutators/dc_def.js";
 import { TypeDefMutator } from "./block_features/mutators/type.js";
 import { placeholderGetDefMixin } from "./block_features/mixins/placeholders/getdef.js";
@@ -28,6 +28,11 @@ import { listOnChangeMixin } from "./block_features/mixins/lists/onchange.js";
 import { listUpdateTypeMixin } from "./block_features/mixins/lists/updatetype.js";
 import { listInitialize } from "./block_features/extensions/list_initialize.js";
 import { placeholderInitialize } from "./block_features/extensions/ph_initialize.js";
+import { tupleInitialize } from "./block_features/extensions/tuple_initialize.js";
+import { tupleGetDefMixin } from "./block_features/mixins/tuples/getdef.js";
+import { tupleUpdateTypeMixin } from "./block_features/mixins/tuples/updatetype.js";
+import { tupleOnChangeMixin } from "./block_features/mixins/tuples/onchange.js";
+import { cascadeUpdatesMixin } from "./block_features/mixins/cascade_updates.js";
 
 export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray(BLOCK_DEFINITIONS);
 
@@ -47,13 +52,18 @@ Blockly.Extensions.registerMixin("list_getdef", listGetDefMixin);
 Blockly.Extensions.registerMixin("list_onchange", listOnChangeMixin);
 Blockly.Extensions.registerMixin("list_updatetype", listUpdateTypeMixin);
 
+Blockly.Extensions.register("tuple_initialization", tupleInitialize);
+Blockly.Extensions.registerMixin("tuple_getdef", tupleGetDefMixin);
+Blockly.Extensions.registerMixin("tuple_onchange", tupleOnChangeMixin);
+Blockly.Extensions.registerMixin("tuple_updatetype", tupleUpdateTypeMixin);
 Blockly.Extensions.registerMutator(
-	"tuple_type_mutator", ProductTypeMutator,
+	"tuple_type_mutator", TupleTypeMutator,
 	undefined, ["types_mutator_item"]
 );
 
 Blockly.Extensions.register("types_post_initialization", updateShapeExtension);
 Blockly.Extensions.registerMixin("disconnect_blocks_mixin", disconnectBlocksMixin);
+Blockly.Extensions.registerMixin("cascade_updates_mixin", cascadeUpdatesMixin);
 
 Blockly.Extensions.register("data_constructor_initialization", dataConstructorUpdateShape);
 Blockly.Extensions.register("data_constructor_initalize_model", dataConstructorInitalizeModel);

@@ -5,9 +5,9 @@ export class ObservableTypeModel implements ITypeModel {
 	private id: string;
 	private name: string;
 	private kind: TypeKind;
-	private typePlaceholders: string[];
+	private typePlaceholders: Map<string, number>;
 	private shouldFireEvents: boolean;
-	private listElementType: ITypeModel | undefined;
+	private listElementType?: ITypeModel;
 	private tupleElementTypes?: ITypeModel[];
 
 	constructor (
@@ -22,7 +22,8 @@ export class ObservableTypeModel implements ITypeModel {
 		this.name = name;
 		this.kind = kind;
 		this.shouldFireEvents = false;
-		this.typePlaceholders = typePlaceholders || [];
+		this.typePlaceholders = new Map();
+		this.setTypePlaceholder(...(typePlaceholders || []));
 		this.listElementType = listElementType;
 		this.tupleElementTypes = tupleElementTypes;
 	}
@@ -60,29 +61,41 @@ export class ObservableTypeModel implements ITypeModel {
 		return this.tupleElementTypes
 	}
 
-	getTypePlaceholders(): string[] {
-		return this.typePlaceholders;
+	setTupleElementTypes(...types: ITypeModel[]): this {
+		this.tupleElementTypes = types;
+		return this;
 	}
 
-	getTypePlaceholder(index: number): string {
-		return this.typePlaceholders[index];
+	addTupleElementTypes(...types: ITypeModel[]): this {
+		this.tupleElementTypes?.push(...types);
+		return this;
+	}
+
+	getTypePlaceholders(): string[] {
+		const placeholders: string[] = [];
+		this.typePlaceholders.forEach((value, key) => placeholders.push(key));
+		return placeholders;
 	}
 
 	addTypePlaceholder(typePlaceholder: string): this {
-		this.typePlaceholders.push(typePlaceholder);
+		if (!this.typePlaceholders.has(typePlaceholder)) {
+			this.typePlaceholders.set(typePlaceholder, 0);
+		}
+		const currentCount = this.typePlaceholders.get(typePlaceholder) || 0;
+		this.typePlaceholders.set(typePlaceholder, currentCount + 1);
 		return this;
 	}
 
 	removeTypePlaceholder(typePlaceholder: string): this {
-		const index = this.typePlaceholders.indexOf(typePlaceholder);
-		if (index !== -1) {
-			this.typePlaceholders.splice(index, 1);
-		}
+		const currentCount = this.typePlaceholders.get(typePlaceholder) || 0;
+		if (currentCount <= 1) this.typePlaceholders.delete(typePlaceholder);
+		else this.typePlaceholders.set(typePlaceholder, currentCount - 1);
 		return this;
 	}
 
 	setTypePlaceholder(...typePlaceholders: string[]): this {
-		this.typePlaceholders = typePlaceholders;
+		this.typePlaceholders.clear();
+		typePlaceholders.forEach(value => this.addTypePlaceholder(value));
 		return this;
 	}
 

@@ -28,7 +28,7 @@ export const dataConstructorDefGetDefMixin = {
 
 	destroy(this: DataConstructorBlock) {
 		const dataConsModelId = this.getDataConstructorModel()?.getId();
-		if (dataConsModelId){
+		if (dataConsModelId) {
 			(this.workspace as TypeWorkspace)
 				.getDataTypeMap()
 				.getDataConsMap()

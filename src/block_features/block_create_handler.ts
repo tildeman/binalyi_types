@@ -1,8 +1,9 @@
 import { Events, common } from "blockly";
-import { isPrimitiveBlock, isPlaceholderBlock, isListBlock } from "../utilities/blocktype_filter.js";
+import { isPrimitiveBlock, isPlaceholderBlock, isListBlock, isTupleBlock } from "../utilities/blocktype_filter.js";
 import { traverseState } from "../utilities/traverse_state.js";
 import { isBlockCreate } from "../utilities/event_filter.js";
 import { GetModelBlock } from "../types/block_variants.js";
+import { enumerateInputState } from "../utilities/mutator_input_enumerator.js";
 
 export function blockCreateListener(e: Events.Abstract) {
 	const workspace = common.getWorkspaceById(e.workspaceId || "");
@@ -23,8 +24,15 @@ export function blockCreateListener(e: Events.Abstract) {
 		}
 		else if (isListBlock(block)) {
 			const targetBlockID: string | undefined = blockInfo.get(blockID)?.inputs?.SUBTYPE?.block?.id;
-			const targetBlock = workspace.getBlockById(targetBlockID || "") as GetModelBlock | undefined;
+			const targetBlock = workspace.getBlockById(targetBlockID || "") as GetModelBlock | null;
 			block.updateType(targetBlock);
+		}
+		else if (isTupleBlock(block)) {
+			const blockIDs: (string | undefined)[] = [];
+			if (state.inputs) blockIDs.push(...enumerateInputState(state.inputs, "ADD"));
+			const childBlocks = blockIDs.map(id => id ? workspace.getBlockById(id) : null);
+
+			block.updateType(childBlocks as (GetModelBlock | null)[]);
 		}
 	}
 }

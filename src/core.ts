@@ -88,6 +88,31 @@ function typeFlyoutBlocks(workspace: TypeWorkspace): FlyoutItemInfoArray {
 		},
 		{
 			"kind": "block",
+			"type": "types_tuple",
+			"extraState": {
+				"itemCount": 3
+			},
+			"inputs": {
+				"ADD0": {
+					"block": {
+						"type": "types_primitive",
+						"fields": {
+							"TYPE": "Char"
+						}
+					}
+				},
+				"ADD2": {
+					"block": {
+						"type": "types_primitive",
+						"fields": {
+							"TYPE": "Bool"
+						}
+					}
+				}
+			}
+		},
+		{
+			"kind": "block",
 			"type": "types_cast"
 		},
 		{
