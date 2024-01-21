@@ -1,10 +1,9 @@
 import { Events } from "blockly";
+import { parseInputName } from "../../../utilities/mutator_input_name_parser.js";
+import { globalBaseModels } from "../../../models/observable_type_model.js";
+import { isGetModelBlock } from "../../../utilities/blocktype_filter.js";
 import { isBlockMove } from "../../../utilities/event_filter.js";
 import { TupleBlock } from "../../types/tuple_block.js";
-import { parseInputName } from "../../../utilities/mutator_input_name_parser.js";
-import { GetModelBlock } from "../../../types/block_variants.js";
-import { globalBaseModels } from "../../../models/observable_type_model.js";
-import { isPlaceholderBlock } from "../../../utilities/blocktype_filter.js";
 
 export type TupleOnChangeMixin = typeof tupleOnChangeMixin;
 
@@ -14,7 +13,12 @@ export const tupleOnChangeMixin = {
 			if (!p1.blockId) return; // Not the response we want
 			const model = this.getModel();
 			if (!model) return; // Model is not initialized
-			const targetBlock = this.workspace.getBlockById(p1.blockId) as GetModelBlock;
+			const targetBlock = this.workspace.getBlockById(p1.blockId);
+			if (!isGetModelBlock(targetBlock)) {
+				model.setListElementType(globalBaseModels.UNIT);
+				this.updateParent();
+				return;
+			}
 			const tupleModelData = model.getTupleElementTypes() || [];
 			if (p1.reason?.includes("connect") && p1.newParentId == this.id) {
 				const modelIndex = parseInputName(p1.newInputName || "", "ADD");

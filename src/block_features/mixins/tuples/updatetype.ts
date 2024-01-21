@@ -1,6 +1,6 @@
-import { GetModelBlock, ParentTypeBlock } from "../../../types/block_variants.js";
-import { isPlaceholderBlock } from "../../../utilities/blocktype_filter.js";
 import { globalBaseModels } from "../../../models/observable_type_model.js";
+import { isGetModelBlock } from "../../../utilities/blocktype_filter.js";
+import { GetModelBlock } from "../../../types/block_variants.js";
 import { TupleBlock } from "../../types/tuple_block.js";
 
 export type TupleUpdateTypeMixin = typeof tupleUpdateTypeMixin;
@@ -11,7 +11,8 @@ export const tupleUpdateTypeMixin = {
 		if (optTargetBlocks == undefined) {
 			for (let i = 0; i < this.itemCount_; i++) {
 				const currentBlock = this.getInputTargetBlock("ADD" + i);
-				targetBlocks.push(currentBlock as GetModelBlock);
+				if (!isGetModelBlock(currentBlock)) continue;
+				targetBlocks.push(currentBlock);
 			}
 		}
 		const model = this.getModel();

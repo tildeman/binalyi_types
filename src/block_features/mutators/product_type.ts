@@ -4,7 +4,7 @@ import {
 } from "../../types/block_variants.js";
 import { Block, Connection, WorkspaceSvg, inputs } from "blockly";
 import { TupleBlock } from "../types/tuple_block.js";
-import { isPlaceholderBlock } from "../../utilities/blocktype_filter.js";
+import { isGetModelBlock, isPlaceholderBlock } from "../../utilities/blocktype_filter.js";
 import { globalBaseModels } from "../../models/observable_type_model.js";
 
 export type TupleTypeMutatorType = typeof TupleTypeMutator;
@@ -78,7 +78,8 @@ export const TupleTypeMutator = {
 			}
 			const input = this.getInput("ADD" + i);
 			itemBlock.valueConnection_ = input?.connection?.targetConnection || null;
-			sourceBlocks.push((input?.connection?.targetConnection?.getSourceBlock() || null) as GetModelBlock | null);
+			const sourceBlock = input?.connection?.targetConnection?.getSourceBlock() || null;
+			sourceBlocks.push(isGetModelBlock(sourceBlock) ? sourceBlock : null);
 			itemBlock = itemBlock.getNextBlock() as BlockWithValueConnection | null;
 			i++;
 		}

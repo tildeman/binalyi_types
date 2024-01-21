@@ -1,9 +1,13 @@
-import { Events, common } from "blockly";
-import { isPrimitiveBlock, isPlaceholderBlock, isListBlock, isTupleBlock } from "../utilities/blocktype_filter.js";
+import { Block, Events, common } from "blockly";
+import * as blockFilters from "../utilities/blocktype_filter.js";
 import { traverseState } from "../utilities/traverse_state.js";
 import { isBlockCreate } from "../utilities/event_filter.js";
-import { GetModelBlock } from "../types/block_variants.js";
 import { enumerateInputState } from "../utilities/mutator_input_enumerator.js";
+
+function castGetModel(block: Block | null) {
+	if (blockFilters.isGetModelBlock(block)) return block;
+	return null;
+}
 
 export function blockCreateListener(e: Events.Abstract) {
 	const workspace = common.getWorkspaceById(e.workspaceId || "");
@@ -16,23 +20,26 @@ export function blockCreateListener(e: Events.Abstract) {
 	for (const blockID of e.ids) {
 		const block = workspace.getBlockById(blockID);
 		if (!block) continue; // Block went into bitbucket
-		if (isPrimitiveBlock(block)) {
+		if (blockFilters.isPrimitiveBlock(block)) {
 			block.updateType(blockInfo.get(blockID)?.fields?.TYPE || "Int");
 		}
-		else if (isPlaceholderBlock(block)) {
+		else if (blockFilters.isPlaceholderBlock(block)) {
 			block.updateType(blockInfo.get(blockID)?.fields?.NAME || "");
 		}
-		else if (isListBlock(block)) {
+		else if (blockFilters.isListBlock(block)) {
 			const targetBlockID: string | undefined = blockInfo.get(blockID)?.inputs?.SUBTYPE?.block?.id;
-			const targetBlock = workspace.getBlockById(targetBlockID || "") as GetModelBlock | null;
-			block.updateType(targetBlock);
+			const targetBlock = workspace.getBlockById(targetBlockID || "");
+			if (blockFilters.isGetModelBlock(targetBlock)) {
+				block.updateType(targetBlock);
+			}
+			// else, do nothing.
 		}
-		else if (isTupleBlock(block)) {
+		else if (blockFilters.isTupleBlock(block)) {
 			const blockIDs: (string | undefined)[] = [];
 			if (state.inputs) blockIDs.push(...enumerateInputState(state.inputs, "ADD"));
-			const childBlocks = blockIDs.map(id => id ? workspace.getBlockById(id) : null);
+			const childBlocks = blockIDs.map(id => id ? castGetModel(workspace.getBlockById(id)) : null);
 
-			block.updateType(childBlocks as (GetModelBlock | null)[]);
+			block.updateType(childBlocks);
 		}
 	}
 }
