@@ -1,4 +1,4 @@
-import { ObservableTypeModel } from "../../models/observable_type_model.js";
+import { ObservableTypeModel, globalBaseModels } from "../../models/observable_type_model.js";
 import { TypeKind } from "../../models/interfaces/i_type_model.js";
 import { TupleBlock } from "../types/tuple_block.js";
 

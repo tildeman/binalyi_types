@@ -8,6 +8,7 @@ export class ObservableDataConstructorModel implements IDataConstructorModel {
 	private parentType: ITypeModel;
 	private argTypes: ITypeModel[];
 	private shouldFireEvents: boolean;
+	private typePlaceholders: Map<string, number>;
 
 	/**
 	 * @param name The name of the new data constructor.
@@ -21,6 +22,7 @@ export class ObservableDataConstructorModel implements IDataConstructorModel {
 		this.parentType = parentType;
 		this.argTypes = argTypes;
 		this.shouldFireEvents = false;
+		this.typePlaceholders = new Map();
 	}
 
 	/**
@@ -56,6 +58,10 @@ export class ObservableDataConstructorModel implements IDataConstructorModel {
 		return this.parentType;
 	}
 
+	setParentType(newType: ITypeModel): this {
+		this.parentType = newType;
+		return this;
+	}
 
 	/**
 	 * @returns An array of all of the template types in the template type list.
@@ -64,12 +70,50 @@ export class ObservableDataConstructorModel implements IDataConstructorModel {
 		return this.argTypes;
 	}
 
+	setArgTypes(...argTypes: ITypeModel[]): this {
+		this.argTypes.splice(0);
+		return this.addArgTypes(...argTypes);
+	}
+
+	addArgTypes(...argTypes: ITypeModel[]): this {
+		this.argTypes.push(...argTypes);
+		return this;
+	}
+
 	/**
 	 * @param index The index of the template type to return.
 	 * @returns The template type at the given index in the template type list.
 	 */
 	getArgType(index: number): ITypeModel {
 		return this.argTypes[index];
+	}
+
+	getTypePlaceholders(): string[] {
+		const placeholders: string[] = [];
+		this.typePlaceholders.forEach((value, key) => placeholders.push(key));
+		return placeholders;
+	}
+
+	addTypePlaceholder(typePlaceholder: string): this {
+		if (!this.typePlaceholders.has(typePlaceholder)) {
+			this.typePlaceholders.set(typePlaceholder, 0);
+		}
+		const currentCount = this.typePlaceholders.get(typePlaceholder) || 0;
+		this.typePlaceholders.set(typePlaceholder, currentCount + 1);
+		return this;
+	}
+
+	removeTypePlaceholder(typePlaceholder: string): this {
+		const currentCount = this.typePlaceholders.get(typePlaceholder) || 0;
+		if (currentCount <= 1) this.typePlaceholders.delete(typePlaceholder);
+		else this.typePlaceholders.set(typePlaceholder, currentCount - 1);
+		return this;
+	}
+
+	setTypePlaceholders(...typePlaceholders: string[]): this {
+		this.typePlaceholders.clear();
+		typePlaceholders.forEach(value => this.addTypePlaceholder(value));
+		return this;
 	}
 
 	/**

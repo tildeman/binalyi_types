@@ -72,6 +72,8 @@ export const DataConstructorMutator = {
 			itemBlock = itemBlock.getNextBlock() as BlockWithValueConnection | null;
 			i++;
 		}
+
+		this.updateType(); // Let's try
 	},
 
 	updateShape_: function(this: DataConstructorBlock) {

@@ -11,8 +11,8 @@ export const tupleUpdateTypeMixin = {
 		if (optTargetBlocks == undefined) {
 			for (let i = 0; i < this.itemCount_; i++) {
 				const currentBlock = this.getInputTargetBlock("ADD" + i);
-				if (!isGetModelBlock(currentBlock)) continue;
-				targetBlocks.push(currentBlock);
+				if (!isGetModelBlock(currentBlock)) targetBlocks.push(null);
+				else targetBlocks.push(currentBlock);
 			}
 		}
 		const model = this.getModel();

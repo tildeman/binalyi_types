@@ -3,6 +3,7 @@ import * as blockFilters from "../utilities/blocktype_filter.js";
 import { traverseState } from "../utilities/traverse_state.js";
 import { isBlockCreate } from "../utilities/event_filter.js";
 import { enumerateInputState } from "../utilities/mutator_input_enumerator.js";
+import { globalBaseModels } from "../models/observable_type_model.js";
 
 function castGetModel(block: Block | null) {
 	if (blockFilters.isGetModelBlock(block)) return block;
@@ -35,11 +36,19 @@ export function blockCreateListener(e: Events.Abstract) {
 			// else, do nothing.
 		}
 		else if (blockFilters.isTupleBlock(block)) {
+			const itemCount: number = state.extraState.itemCount || 2; // Hardcoded default, will change
 			const blockIDs: (string | undefined)[] = [];
-			if (state.inputs) blockIDs.push(...enumerateInputState(state.inputs, "ADD"));
+			for (let i = 0; i < itemCount; i++) blockIDs.push(undefined);
+			if (state.inputs) {
+				const enumList = enumerateInputState(state.inputs, "ADD");
+				blockIDs.splice(0, enumList.length, ...enumList);
+			}
 			const childBlocks = blockIDs.map(id => id ? castGetModel(workspace.getBlockById(id)) : null);
 
 			block.updateType(childBlocks);
+		}
+		else if (blockFilters.isDataConstructorBlock(block)) {
+			block.getDataConstructorModel()?.setArgTypes(globalBaseModels.UNIT, globalBaseModels.UNIT);
 		}
 	}
 }

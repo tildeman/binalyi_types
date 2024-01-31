@@ -194,6 +194,8 @@ export const blockDefs: FBlockDefinition[] = [
 			"data_constructor_initalize_model",
 			"dc_context_menu_mixin",
 			"disconnect_blocks_mixin",
+			"dc_updatetype_mixin",
+			"dc_onchange_mixin",
 			"dc_rename_mixin"
 		],
 		mutator: "data_cons_mutator",

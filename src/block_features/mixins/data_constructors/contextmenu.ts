@@ -20,6 +20,12 @@ function tmpFindNameFactory(block: Block) {
 	}
 }
 
+function debugModelCallback(block: DataConstructorBlock) {
+	return function() {
+		console.log(block.getDataConstructorModel());
+	}
+}
+
 export const dataConstructorContextMenuMixin = {
 	customContextMenu: function(this: DataConstructorBlock, options: Array<ContextMenuOption | LegacyContextMenuOption>) {
 		options.push({
@@ -31,6 +37,11 @@ export const dataConstructorContextMenuMixin = {
 			text: "Find a Legal Name",
 			enabled: true,
 			callback: tmpFindNameFactory(this)
+		});
+		options.push({
+			text: "Debug model",
+			enabled: true,
+			callback: debugModelCallback(this)
 		});
 	}
 };

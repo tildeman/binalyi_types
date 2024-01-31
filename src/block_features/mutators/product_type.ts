@@ -1,11 +1,7 @@
-import {
-	BlockWithValueConnection,
-	GetModelBlock,
-} from "../../types/block_variants.js";
+import { BlockWithValueConnection, GetModelBlock } from "../../types/block_variants.js";
+import { isGetModelBlock } from "../../utilities/blocktype_filter.js";
 import { Block, Connection, WorkspaceSvg, inputs } from "blockly";
 import { TupleBlock } from "../types/tuple_block.js";
-import { isGetModelBlock, isPlaceholderBlock } from "../../utilities/blocktype_filter.js";
-import { globalBaseModels } from "../../models/observable_type_model.js";
 
 export type TupleTypeMutatorType = typeof TupleTypeMutator;
 
