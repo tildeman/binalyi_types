@@ -35,6 +35,8 @@ import { tupleOnChangeMixin } from "./block_features/mixins/tuples/onchange.js";
 import { cascadeUpdatesMixin } from "./block_features/mixins/cascade_updates.js";
 import { dataConstructorUpdateTypeMixin } from "./block_features/mixins/data_constructors/updatetype.js";
 import { dataConstructorOnChangeMixin } from "./block_features/mixins/data_constructors/onchange.js";
+import { dataConstructorCallerGetDefMixin } from "./block_features/mixins/dc_getters/getdef.js";
+import { dataConstructorGetOnChangeMixin } from "./block_features/mixins/dc_getters/onchange.js";
 
 export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray(BLOCK_DEFINITIONS);
 
@@ -69,8 +71,10 @@ Blockly.Extensions.registerMixin("cascade_updates_mixin", cascadeUpdatesMixin);
 
 Blockly.Extensions.register("data_constructor_initialization", dataConstructorUpdateShape);
 Blockly.Extensions.register("data_constructor_initalize_model", dataConstructorInitalizeModel);
+Blockly.Extensions.registerMixin("data_constructor_caller_get_def_mixin", dataConstructorCallerGetDefMixin);
 Blockly.Extensions.registerMixin("data_constructor_def_get_def_mixin", dataConstructorDefGetDefMixin);
 Blockly.Extensions.registerMixin("dc_context_menu_mixin", dataConstructorContextMenuMixin);
+Blockly.Extensions.registerMixin("dc_get_onchange_mixin", dataConstructorGetOnChangeMixin);
 Blockly.Extensions.registerMixin("dc_updatetype_mixin", dataConstructorUpdateTypeMixin);
 Blockly.Extensions.registerMixin("dc_onchange_mixin", dataConstructorOnChangeMixin);
 Blockly.Extensions.registerMixin("dc_rename_mixin", dataConstructorRenameMixin);

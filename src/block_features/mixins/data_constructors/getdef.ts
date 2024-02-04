@@ -1,6 +1,8 @@
 import { IDataConstructorModel } from "../../../models/interfaces/i_data_constructor_model.js";
-import { DataConstructorBlock } from "../../types/dc_def_block.js";
 import { TypeWorkspace } from "../../../types/workspace_extensions.js";
+import { DataConstructorDelete } from "../../../events/dc_delete.js";
+import { DataConstructorBlock } from "../../types/dc_def_block.js";
+import { Events } from "blockly";
 
 export type DataConstructorDefGetDefMixin = typeof dataConstructorDefGetDefMixin;
 
@@ -27,12 +29,13 @@ export const dataConstructorDefGetDefMixin = {
 	},
 
 	destroy(this: DataConstructorBlock) {
-		const dataConsModelId = this.getDataConstructorModel()?.getId();
-		if (dataConsModelId) {
+		const dataConsModel = this.getDataConstructorModel();
+		if (dataConsModel) {
 			(this.workspace as TypeWorkspace)
 				.getDataTypeMap()
 				.getDataConsMap()
-				.delete(dataConsModelId);
+				.delete(dataConsModel.getId());
+			Events.fire(new DataConstructorDelete(this.workspace, dataConsModel))
 		}
 	}
 }

@@ -218,13 +218,28 @@ export const blockDefs: FBlockDefinition[] = [
 	},
 	{
 		type: "types_dc_get",
+		message0: "%1 %2",
+		args0: [
+		  {
+			type: "field_label_serializable",
+			name: "NAME",
+			text: "%{BKY_UNNAMED_KEY}"
+		  },
+		  {
+			type: "input_dummy",
+			name: "EMPTY"
+		  }
+		],
 		output: "Type",
 		style: "loop_blocks",
 		extensions: [
-			"disconnect_blocks_mixin"
+			"data_constructor_caller_get_def_mixin",
+			"disconnect_blocks_mixin",
+			"dc_context_menu_mixin",
+			"dc_get_onchange_mixin"
 		],
 		mutator: "data_cons_get_mutator",
 		tooltip: "",
 		helpUrl: ""
-	},
+	}
 ];

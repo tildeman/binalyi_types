@@ -145,18 +145,18 @@ function typeFlyoutBlocks(workspace: TypeWorkspace): FlyoutItemInfoArray {
 			{ "kind": "sep", "gap": "4" },
 			{ "kind": "block", "type": "types_dc_def" }
 		);
-		// const dataConsMap = ObservableDataTypeMap.getDataConsMap();
-		// for (const dataConsModel in dataConsMap) {
-		// 	jsonList.push(
-		// 		{
-		// 			"kind": "block",
-		// 			"type": "types_dc_get",
-		// 			"extraState": {
-		// 				"dcName": dataConsMap.get(dataConsModel)!.getName()
-		// 			}
-		// 		}
-		// 	);
-		// }
+		const dataConsMap = workspace.getDataTypeMap().getDataConsMap();
+		for (const [dataConsId, dataConsModel] of dataConsMap) {
+			jsonList.push(
+				{
+					"kind": "block",
+					"type": "types_dc_get",
+					"fields": {
+						"NAME": dataConsModel.getName()
+					}
+				}
+			);
+		}
 	}
 	return jsonList;
 }

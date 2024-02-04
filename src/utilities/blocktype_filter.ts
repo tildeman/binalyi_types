@@ -1,4 +1,5 @@
 import { Block } from "blockly";
+import { DataConstructorGetBlock } from "../block_features/types/dc_get_block.js";
 import { PlaceholderBlock } from "../block_features/types/placeholder_block.js";
 import { DataConstructorBlock } from "../block_features/types/dc_def_block.js";
 import { PrimitiveBlock } from "../block_features/types/primitive_block.js";
@@ -24,6 +25,10 @@ export function isTupleBlock(block: Block): block is TupleBlock {
 
 export function isDataConstructorBlock(block: Block): block is DataConstructorBlock {
 	return block.type == "types_dc_def";
+}
+
+export function isDataConstructorGetBlock(block: Block): block is DataConstructorGetBlock {
+	return block.type == "types_dc_get";
 }
 
 export function isGetModelBlock(block: Block | null | undefined): block is GetModelBlock {

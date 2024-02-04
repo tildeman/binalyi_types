@@ -20,15 +20,16 @@ export function blockCreateListener(e: Events.Abstract) {
 	const blockInfo = traverseState(state);
 	for (const blockID of e.ids) {
 		const block = workspace.getBlockById(blockID);
+		const blockState = blockInfo.get(blockID);
 		if (!block) continue; // Block went into bitbucket
 		if (blockFilters.isPrimitiveBlock(block)) {
-			block.updateType(blockInfo.get(blockID)?.fields?.TYPE || "Int");
+			block.updateType(blockState?.fields?.TYPE || "Int");
 		}
 		else if (blockFilters.isPlaceholderBlock(block)) {
-			block.updateType(blockInfo.get(blockID)?.fields?.NAME || "");
+			block.updateType(blockState?.fields?.NAME || "");
 		}
 		else if (blockFilters.isListBlock(block)) {
-			const targetBlockID: string | undefined = blockInfo.get(blockID)?.inputs?.SUBTYPE?.block?.id;
+			const targetBlockID: string | undefined = blockState?.inputs?.SUBTYPE?.block?.id;
 			const targetBlock = workspace.getBlockById(targetBlockID || "");
 			if (blockFilters.isGetModelBlock(targetBlock)) {
 				block.updateType(targetBlock);
@@ -36,11 +37,12 @@ export function blockCreateListener(e: Events.Abstract) {
 			// else, do nothing.
 		}
 		else if (blockFilters.isTupleBlock(block)) {
-			const itemCount: number = state.extraState.itemCount || 2; // Hardcoded default, will change
+			const itemCount: number = blockState?.extraState.itemCount || 2; // Hardcoded default, will change
 			const blockIDs: (string | undefined)[] = [];
 			for (let i = 0; i < itemCount; i++) blockIDs.push(undefined);
-			if (state.inputs) {
-				const enumList = enumerateInputState(state.inputs, "ADD");
+			const inputs = blockState?.inputs;
+			if (inputs) {
+				const enumList = enumerateInputState(inputs, "ADD");
 				blockIDs.splice(0, enumList.length, ...enumList);
 			}
 			const childBlocks = blockIDs.map(id => id ? castGetModel(workspace.getBlockById(id)) : null);

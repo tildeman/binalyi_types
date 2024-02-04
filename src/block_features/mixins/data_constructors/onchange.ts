@@ -4,6 +4,7 @@ import { globalBaseModels } from "../../../models/observable_type_model.js";
 import { isGetModelBlock } from "../../../utilities/blocktype_filter.js";
 import { isBlockMove } from "../../../utilities/event_filter.js";
 import { DataConstructorBlock } from "../../types/dc_def_block.js";
+import { DataConstructorChangeReturn } from "../../../events/dc_change.js";
 
 export type DataConstructorOnChangeMixin = typeof dataConstructorOnChangeMixin;
 
@@ -23,11 +24,13 @@ export const dataConstructorOnChangeMixin = {
 		if (isGetModelBlock(targetBlock)) {
 			dataconstructorModelData[modelIndex] = connectCondition ? targetBlock.getModel() : globalBaseModels.UNIT;
 			targetBlock.getModel().getTypePlaceholders().forEach(function(value) {
-				model.addTypePlaceholder(value);
+				if (connectCondition) model.addTypePlaceholder(value);
+				else if (disconnectCondition) model.removeTypePlaceholder(value);
 			});
 		}
 		else {
 			dataconstructorModelData[modelIndex] = globalBaseModels.UNIT;
 		}
+		Events.fire(new DataConstructorChangeReturn(this.workspace, model, null));
 	}
 };

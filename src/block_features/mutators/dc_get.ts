@@ -6,32 +6,34 @@ import { inputs } from "blockly";
 export type DataConstructorGetMutatorType = typeof DataConstructorGetMutator;
 
 export const DataConstructorGetMutator = {
-	dcName_: "",
-
 	saveExtraState: function(this: DataConstructorGetBlock) {
-		return {
-			"dcName": this.dcName_
-		}
+		const state = Object.create(null);
+		const model = this.getDataConstructorModel();
+		if (!model) state.name = this.getFieldValue("NAME");
+		else state.name = model.getName();
+		return state;
 	},
 
 	loadExtraState: function(this: DataConstructorGetBlock, state: any) {
-		this.dcName_ = state["dcName"];
-		this.updateShape_();
+		if (!this.model_) this.model_ = this.findDataConsModel(state.name);
+		this.updateShape_(state.name);
 	},
 
-	updateShape_: function(this: DataConstructorGetBlock) {
-		const dataConsModel = (this.workspace as TypeWorkspace).getDataTypeMap().getDataConsMap().get(this.dcName_);
-		const argumentTypes = dataConsModel?.getArgTypes() || [];
+	updateShape_: function(this: DataConstructorGetBlock, newName?: string) {
+		const argumentTypes = this.getDataConstructorModel()?.getArgTypes() || [];
+		const name = newName || this.getFieldValue("NAME");
+
+		this.setFieldValue(name, "NAME");
 		if (argumentTypes.length && this.getInput("EMPTY")) {
 			this.removeInput("EMPTY");
 		}
 		else if (!argumentTypes.length) {
 			if (!this.getInput("EMPTY")) {
 				this.appendDummyInput("EMPTY")
-					.appendField(this.dcName_, "NAME");
+					.appendField(name, "NAME");
 			}
 			else {
-				this.setFieldValue(this.dcName_, "NAME");
+				this.setFieldValue(name, "NAME");
 			}
 		}
 
@@ -42,11 +44,8 @@ export const DataConstructorGetMutator = {
 					.appendValueInput("DATA" + i)
 					.setAlign(inputs.Align.RIGHT);
 				if (i === 0) {
-					input.appendField(this.dcName_, "NAME");
+					input.appendField(name, "NAME");
 				}
-			}
-			else {
-				this.setFieldValue(this.dcName_, "NAME");
 			}
 			input.setCheck(identifyModelParams(argumentTypes[i]));
 		}
