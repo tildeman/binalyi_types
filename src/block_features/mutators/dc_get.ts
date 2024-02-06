@@ -1,5 +1,4 @@
 import { DataConstructorGetBlock } from "../types/dc_get_block.js";
-import { TypeWorkspace } from "../../types/workspace_extensions.js";
 import { identifyModelParams } from "../../core.js";
 import { inputs } from "blockly";
 

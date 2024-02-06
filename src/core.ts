@@ -129,13 +129,13 @@ function typeFlyoutBlocks(workspace: TypeWorkspace): FlyoutItemInfoArray {
 		const typeMap = workspace.getDataTypeMap().getTypeMap();
 		for (const typeModel in typeMap) {
 			jsonList.push(
-		// 		{
-		// 			"kind": "block",
-		// 			"type": "types_type",
-		// 			"extraState": {
-		// 				"typeName": typeMap.get(typeModel)!.getName()
-		// 			}
-		// 		}
+				{
+					"kind": "block",
+					"type": "types_type",
+					"extraState": {
+						"typeName": typeMap.get(typeModel)!.getName()
+					}
+				},
 				{ "kind": "label", "text": typeMap.get(typeModel)!.getName() }
 			);
 		}
@@ -153,6 +153,9 @@ function typeFlyoutBlocks(workspace: TypeWorkspace): FlyoutItemInfoArray {
 					"type": "types_dc_get",
 					"fields": {
 						"NAME": dataConsModel.getName()
+					},
+					"extraState": {
+						"name": dataConsModel.getName()
 					}
 				}
 			);
