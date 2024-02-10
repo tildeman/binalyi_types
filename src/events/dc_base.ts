@@ -12,7 +12,7 @@ import { IDataConstructorModel } from '../models/interfaces/i_data_constructor_m
  * The base event for an event associated with a data constructor.
  */
 export abstract class DataConstructorBase extends Blockly.Events.Abstract {
-	static readonly TYPE: string = 'dc_base';
+	static readonly TYPE: string = 'type_base';
 
 	/** A string used to check the type of the event. */
 	type = DataConstructorBase.TYPE;

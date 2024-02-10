@@ -1,5 +1,5 @@
 import { ITypeModel } from "../../../models/interfaces/i_type_model.js";
-import { TypeWorkspace, TypeWorkspaceSvg } from "../../../types/workspace_extensions.js";
+import { TypeWorkspaceSvg } from "../../../types/workspace_extensions.js";
 import { TypeBlock } from "../../types/type_block.js";
 
 export type TypeRefGetDefMixin = typeof typeRefGetDefMixin;
@@ -12,12 +12,10 @@ export const typeRefGetDefMixin = {
 	},
 
 	findTypeModel(this: TypeBlock, name: string, placeholders: string[] = []) {
-		const model = [...(this.workspace as TypeWorkspace).getDataTypeMap().getTypeMap().values()].find((type) => type.getName() === name);
+		const types = [...this.workspace.getDataTypeMap().getTypeMap().values()];
+		const model = types.find((type) => type.getName() === name);
 
 		if (!model) return null;
-
-		const hasMatchingPlaceholders = model.getTypePlaceholders().every((value, index) => value == placeholders[index]);
-		if (!hasMatchingPlaceholders) return null;
 
 		return model;
 	},

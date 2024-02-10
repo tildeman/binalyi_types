@@ -31,6 +31,10 @@ export const dataConstructorDefGetDefMixin = {
 	destroy(this: DataConstructorBlock) {
 		const dataConsModel = this.getDataConstructorModel();
 		if (dataConsModel) {
+			const dcTypeModel = dataConsModel.getParentType()
+			dataConsModel.getTypePlaceholders().forEach(function(tp) {
+				dcTypeModel.removeTypePlaceholder(tp);
+			});
 			(this.workspace as TypeWorkspace)
 				.getDataTypeMap()
 				.getDataConsMap()

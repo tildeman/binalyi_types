@@ -127,16 +127,21 @@ function typeFlyoutBlocks(workspace: TypeWorkspace): FlyoutItemInfoArray {
 			{ "kind": "sep", "gap": "4" }
 		);
 		const typeMap = workspace.getDataTypeMap().getTypeMap();
-		for (const typeModel in typeMap) {
+		for (const [typeId, typeModel] of typeMap) {
+			const typeName = typeModel.getName();
+			const typePh = typeModel.getTypePlaceholders();
 			jsonList.push(
 				{
 					"kind": "block",
 					"type": "types_type",
+					"fields": {
+						"TYPENAME": "type " + typeModel.getName() + (typePh.length ? " with:" : "")
+					},
 					"extraState": {
-						"typeName": typeMap.get(typeModel)!.getName()
+						"name": typeModel.getName()
 					}
 				},
-				{ "kind": "label", "text": typeMap.get(typeModel)!.getName() }
+				{ "kind": "label", "text": typeModel.getName() }
 			);
 		}
 

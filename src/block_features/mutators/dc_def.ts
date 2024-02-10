@@ -1,5 +1,5 @@
 import { BlockWithValueConnection } from "../../types/block_variants.js";
-import { ITypeModel } from "../../models/interfaces/i_type_model.js";
+import { globalBaseModels } from "../../models/observable_type_model.js";
 import { Block, Connection, WorkspaceSvg, inputs } from "blockly";
 import { DataConstructorBlock } from "../types/dc_def_block.js";
 
@@ -53,9 +53,15 @@ export const DataConstructorMutator = {
 		}
 		this.itemCount_ = connections.length;
 		this.updateShape_();
+		const argTypesList = this.getDataConstructorModel()?.getArgTypes() || [];
+		argTypesList.splice(this.itemCount_);
 
 		for (let i = 0; i < this.itemCount_; ++i) {
-			connections[i]?.reconnect(this, "DATA" + i);
+			const connection = connections[i];
+			if (connection) connection.reconnect(this, "DATA" + i);
+			else argTypesList[i] = globalBaseModels.UNIT;
+
+			if (!argTypesList[i]) argTypesList[i] = globalBaseModels.UNIT;
 		}
 	},
 
@@ -73,13 +79,11 @@ export const DataConstructorMutator = {
 			i++;
 		}
 
-		this.updateType(); // Let's try
+		// this.updateType(); // Let's try
 	},
 
 	updateShape_: function(this: DataConstructorBlock) {
 		// TODO: Assign new placeholder types
-		const argTypesList: ITypeModel[] = this.getDataConstructorModel()?.getArgTypes() || [];
-		argTypesList.splice(0);
 		for (let i = 0; i < this.itemCount_; ++i) {
 			if (!this.getInput("DATA" + i)) {
 				const input = this.appendValueInput("DATA" + i)

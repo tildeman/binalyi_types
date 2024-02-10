@@ -205,12 +205,25 @@ export const blockDefs: FBlockDefinition[] = [
 	},
 	{
 		type: "types_type",
+		message0: "%1 %2",
+		args0: [
+		  {
+			type: "field_label_serializable",
+			name: "TYPENAME",
+			text: "%{BKY_UNNAMED_KEY}"
+		  },
+		  {
+			type: "input_dummy",
+			name: "EMPTY"
+		  }
+		],
 		output: "Type",
 		style: "loop_blocks",
 		extensions: [
 			"disconnect_blocks_mixin",
 			"type_menu_mixin",
-			"type_ref_get_def_mixin"
+			"type_ref_get_def_mixin",
+			"type_onchange_mixin"
 		],
 		mutator: "type_mutator",
 		tooltip: "",

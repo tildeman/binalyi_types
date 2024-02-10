@@ -5,46 +5,47 @@ import { inputs } from "blockly";
 export type TypeMutatorType = typeof TypeDefMutator;
 
 export const TypeDefMutator = {
-	typeId_: "",
-
 	saveExtraState: function(this: TypeBlock) {
-		return {
-			typeId: this.typeId_
-		}
+		const state = Object.create(null);
+		const model = this.getTypeModel();
+		if (!model) state.name = this.getFieldValue("TYPENAME");
+		else state.name = model.getName();
+		return state;
 	},
 
 	loadExtraState: function(this: TypeBlock, state: any) {
-		this.typeId_ = state.typeId;
-		this.updateShape_();
+		if (!this.model_) this.model_ = this.findTypeModel(state.name);
+		this.updateShape_(state.name);
 	},
 
-	updateShape_: function(this: TypeBlock) {
-		const typeModel = (this.workspace as TypeWorkspace).getDataTypeMap().getTypeMap().get(this.typeId_);
+	updateShape_: function(this: TypeBlock, name: string) {
+		const typeModel = this.getTypeModel();
 		const typePlaceholders = typeModel?.getTypePlaceholders() || [];
-		if (typePlaceholders.length && this.getInput("EMPTY")) {
+		const empty = Boolean(this.getInput("EMPTY"));
+		const tpLength = typePlaceholders.length;
+
+		if (tpLength && empty) {
 			this.removeInput("EMPTY");
 		}
-		else if (!typePlaceholders.length && !this.getInput("EMPTY")) {
+		else if ((!tpLength) && (!empty)) {
 			this.appendDummyInput("EMPTY")
-				.appendField("type " + this.typeId_);
+				.appendField("type " + name, "TYPENAME");
 		}
 
-		for (let i = 0; i < typePlaceholders.length; ++i) {
+		for (let i = 0; i < tpLength; ++i) {
 			if (!this.getInput("DATA" + i)) {
 				const input = this.appendValueInput("DATA" + i)
 					  .setAlign(inputs.Align.RIGHT)
 					  .setCheck("Type");
 				if (i === 0) {
-					input.appendField("type " + this.typeId_ + " with:");
+					input.appendField("type " + name + " with:", "TYPENAME");
 				}
 				input.appendField(typePlaceholders[i], "NAME" + i);
 			}
-			else {
-				this.setFieldValue(typePlaceholders[i], "NAME" + i);
-			}
+			else this.setFieldValue(typePlaceholders[i], "NAME" + i);
 		}
 
-		for (let i = typePlaceholders.length; this.getInput("DATA" + i); ++i) {
+		for (let i = tpLength; this.getInput("DATA" + i); ++i) {
 			this.removeInput("DATA" + i);
 		}
 	}

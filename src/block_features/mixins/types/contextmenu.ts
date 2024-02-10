@@ -1,15 +1,18 @@
 import { ContextMenuOption, LegacyContextMenuOption } from "blockly/core/contextmenu_registry.js";
-import { TypeWorkspaceSvg } from "../../../types/workspace_extensions.js";
 import { TypeBlock } from "../../types/type_block.js";
-import { removeType } from "../../../core.js";
+import { Events } from "blockly";
+import { TypeDelete } from "../../../events/type_delete.js";
 
 export type TypeContextMenuMixin = typeof typeContextMenuMixin;
 
 function deleteRenameOptionCallback(block: TypeBlock) {
 	return function() {
-		const workspace = block.workspace as TypeWorkspaceSvg;
-		const typeName = ("typeName_" in block && typeof block.typeName_ == "string") ? block.typeName_ : "";
-		removeType(workspace, typeName);
+		const workspace = block.workspace;
+		const typeModel = block.getTypeModel();
+		if (!typeModel) return;
+		const typeName = typeModel.getName();
+		// removeType(workspace, typeName || "");
+		Events.fire(new TypeDelete(workspace, typeModel));
 	}
 }
 

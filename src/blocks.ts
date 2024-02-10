@@ -37,6 +37,7 @@ import { dataConstructorUpdateTypeMixin } from "./block_features/mixins/data_con
 import { dataConstructorOnChangeMixin } from "./block_features/mixins/data_constructors/onchange.js";
 import { dataConstructorCallerGetDefMixin } from "./block_features/mixins/dc_getters/getdef.js";
 import { dataConstructorGetOnChangeMixin } from "./block_features/mixins/dc_getters/onchange.js";
+import { typeGetOnChangeMixin } from "./block_features/mixins/types/onchange.js";
 
 export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray(BLOCK_DEFINITIONS);
 
@@ -89,6 +90,7 @@ Blockly.Extensions.registerMutator(
 
 Blockly.Extensions.registerMixin("type_menu_mixin", typeContextMenuMixin);
 Blockly.Extensions.registerMixin("type_ref_get_def_mixin", typeRefGetDefMixin);
+Blockly.Extensions.registerMixin("type_onchange_mixin", typeGetOnChangeMixin);
 Blockly.Extensions.registerMutator(
 	"type_mutator", TypeDefMutator,
 	undefined, []

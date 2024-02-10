@@ -19,7 +19,9 @@ export const dataConstructorUpdateTypeMixin = {
 		}
 		const model = this.getDataConstructorModel();
 		if (!model) throw new Error("The model was not initialized properly");
+		const typeModel = model.getParentType();
 		model.setTypePlaceholders();
+		typeModel.setTypePlaceholder();
 		model.setArgTypes();
 
 		for (const targetBlock of targetBlocks) {
@@ -27,6 +29,7 @@ export const dataConstructorUpdateTypeMixin = {
 				model.addArgTypes(targetBlock.getModel());
 				targetBlock.getModel().getTypePlaceholders().forEach(function(value) {
 					model.addTypePlaceholder(value);
+					typeModel.addTypePlaceholder(value);
 				});
 			}
 			else {
