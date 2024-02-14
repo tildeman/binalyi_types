@@ -6,7 +6,7 @@ export type TypeMutatorType = typeof TypeDefMutator;
 export const TypeDefMutator = {
 	saveExtraState: function(this: TypeBlock) {
 		const state = Object.create(null);
-		const model = this.getTypeModel();
+		const model = this.getModel();
 		if (!model) state.name = this.getFieldValue("TYPENAME");
 		else state.name = model.getName();
 		return state;
@@ -18,7 +18,7 @@ export const TypeDefMutator = {
 	},
 
 	updateShape_: function(this: TypeBlock, name: string) {
-		const typeModel = this.getTypeModel();
+		const typeModel = this.getModel();
 		const typePlaceholders = typeModel?.getTypePlaceholders() || [];
 		const empty = Boolean(this.getInput("EMPTY"));
 		const tpLength = typePlaceholders.length;

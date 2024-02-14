@@ -1,15 +1,16 @@
 import { ContextMenuOption, LegacyContextMenuOption } from "blockly/core/contextmenu_registry.js";
+import { findLegalName } from "../../../utilities/find_legal_name.js";
 import { DataConstructorBlock } from "../../types/dc_def_block.js";
-import { TypeWorkspace } from "../../../types/workspace_extensions.js";
-import { findLegalName, removeType } from "../../../core.js";
+import { removeType } from "../../../utilities/delete_type.js";
 import { Block } from "blockly";
 
 // I want to call this a curried function, but this sounds like alien talk.
 function deleteOptionCallback(block: DataConstructorBlock) {
 	return function() {
-		const workspace = block.workspace as TypeWorkspace;
-		const typeName = block.getFieldValue("TYPE");
-		removeType(workspace, typeName);
+		const workspace = block.workspace;
+		const typeModel = block.getDataConstructorModel()?.getParentType();
+		if (!typeModel) return;
+		removeType(workspace, typeModel.getId());
 	}
 }
 

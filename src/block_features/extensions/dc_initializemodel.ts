@@ -2,7 +2,8 @@ import { ObservableDataConstructorModel } from "../../models/observable_data_con
 import { ITypeModel } from "../../models/interfaces/i_type_model.js";
 import { TypeWorkspace } from "../../types/workspace_extensions.js";
 import { DataConstructorBlock } from "../types/dc_def_block.js";
-import { Events, Procedures } from "blockly";
+import { findLegalName } from "../../utilities/find_legal_name.js";
+import { Events } from "blockly";
 
 /**
  * An extension to set up the backing model for data constructor definition blocks.
@@ -14,7 +15,7 @@ export function dataConstructorInitalizeModel(this: DataConstructorBlock) {
 	if (this.isInFlyout) return;
 
 	const model = new ObservableDataConstructorModel(
-		Procedures.findLegalName(this.getFieldValue('NAME'), this),
+		findLegalName(this.getFieldValue('NAME'), this),
 		(this.workspace as TypeWorkspace).getDataTypeMap().getTypeMap().get(this.getFieldValue("TYPE")) as ITypeModel,
 		[]
 	);

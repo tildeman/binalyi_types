@@ -1,8 +1,40 @@
+import { ITypeModel, TypeKind } from "../../models/interfaces/i_type_model.js";
 import { DataConstructorGetBlock } from "../types/dc_get_block.js";
-import { identifyModelParams } from "../../core.js";
 import { inputs } from "blockly";
 
 export type DataConstructorGetMutatorType = typeof DataConstructorGetMutator;
+
+function identifyModelParams(model: ITypeModel | null) : (string | string[] | null) {
+	if (!model) return null;
+	switch (model.getKind()) {
+		case TypeKind.Placeholder:
+			return null;
+		case TypeKind.Primitive:
+			switch (model.getName()) {
+				case "Int":
+				case "Integer":
+				case "Float":
+				case "Double":
+					return "Number";
+				case "Char":
+					// I could make a block for a single character, but that would be
+					// less than intuitive.
+					return "String";
+				case "Bool":
+					return "Boolean";
+			}
+		case TypeKind.List:
+			// Assuming strings are arrays of characters; this is not always the case.
+			return ["Array", "String"]
+		case TypeKind.Tuple:
+			// Although there is no 1-tuple in Haskell and the fact that this library
+			// is primarily designed with Haskell in mind, support for other languages
+			// such as Python also exists, plus allowing users to define these is
+			// intuitive in some sense.
+			return "Tuple"
+	}
+	return null;
+}
 
 export const DataConstructorGetMutator = {
 	saveExtraState: function(this: DataConstructorGetBlock) {

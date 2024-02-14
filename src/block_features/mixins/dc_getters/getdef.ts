@@ -1,6 +1,5 @@
 import { IDataConstructorModel } from "../../../models/interfaces/i_data_constructor_model.js";
 import { DataConstructorGetBlock } from "../../types/dc_get_block.js";
-import { TypeWorkspace, TypeWorkspaceSvg } from "../../../types/workspace_extensions.js";
 
 export type DataConstructorCallerGetDefMixin = typeof dataConstructorCallerGetDefMixin;
 
@@ -25,12 +24,5 @@ export const dataConstructorCallerGetDefMixin = {
 
 		// No need to check, just being careless here
 		return model;
-	},
-
-	getTargetWorkspace_(this: DataConstructorGetBlock): TypeWorkspace | null {
-		if (this.workspace.isFlyout) {
-			return (this.workspace as TypeWorkspaceSvg).targetWorkspace as TypeWorkspace | null;
-		}
-		return this.workspace;
 	}
 }

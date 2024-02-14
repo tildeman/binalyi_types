@@ -10,7 +10,6 @@ import { primitiveContextMenuMixin } from "./block_features/mixins/contextmenu.j
 import { primitiveUpdateTypeMixin } from "./block_features/mixins/primitives/updatetype.js";
 import { primitiveOnChangeMixin } from "./block_features/mixins/primitives/onchange.js";
 import { disconnectBlocksMixin } from "./block_features/mixins/disconnect_blocks.js";
-import { primitiveGetDefMixin } from "./block_features/mixins/primitives/getdef.js";
 import { typeContextMenuMixin } from "./block_features/mixins/types/contextmenu.js";
 import { dataConstructorDefGetDefMixin } from "./block_features/mixins/data_constructors/getdef.js";
 import { dataConstructorRenameMixin } from "./block_features/mixins/data_constructors/rename.js";
@@ -20,16 +19,13 @@ import { DataConstructorGetMutator } from "./block_features/mutators/dc_get.js";
 import { TupleTypeMutator } from "./block_features/mutators/product_type.js";
 import { DataConstructorMutator } from "./block_features/mutators/dc_def.js";
 import { TypeDefMutator } from "./block_features/mutators/type.js";
-import { placeholderGetDefMixin } from "./block_features/mixins/placeholders/getdef.js";
 import { placeholderUpdateTypeMixin } from "./block_features/mixins/placeholders/updatetype.js";
 import { placeholderOnChangeMixin } from "./block_features/mixins/placeholders/onchange.js";
-import { listGetDefMixin } from "./block_features/mixins/lists/getdef.js";
 import { listOnChangeMixin } from "./block_features/mixins/lists/onchange.js";
 import { listUpdateTypeMixin } from "./block_features/mixins/lists/updatetype.js";
 import { listInitialize } from "./block_features/extensions/list_initialize.js";
 import { placeholderInitialize } from "./block_features/extensions/ph_initialize.js";
 import { tupleInitialize } from "./block_features/extensions/tuple_initialize.js";
-import { tupleGetDefMixin } from "./block_features/mixins/tuples/getdef.js";
 import { tupleUpdateTypeMixin } from "./block_features/mixins/tuples/updatetype.js";
 import { tupleOnChangeMixin } from "./block_features/mixins/tuples/onchange.js";
 import { cascadeUpdatesMixin } from "./block_features/mixins/cascade_updates.js";
@@ -38,27 +34,27 @@ import { dataConstructorOnChangeMixin } from "./block_features/mixins/data_const
 import { dataConstructorCallerGetDefMixin } from "./block_features/mixins/dc_getters/getdef.js";
 import { dataConstructorGetOnChangeMixin } from "./block_features/mixins/dc_getters/onchange.js";
 import { typeGetOnChangeMixin } from "./block_features/mixins/types/onchange.js";
+import { getTargetWorkspaceMixin } from "./block_features/mixins/get_target_workspace.js";
+import { getModelMixin } from "./block_features/mixins/get_type_model.js";
+import { primitiveInitialize } from "./block_features/extensions/primitive_initialize.js";
 
 export const blocks = Blockly.common.createBlockDefinitionsFromJsonArray(BLOCK_DEFINITIONS);
 
 Blockly.Extensions.register("types_tooltip", Blockly.Extensions.buildTooltipForDropdown("TYPE", TOOLTIPS_BY_TYPE));
-Blockly.Extensions.registerMixin("primitive_dgd", primitiveGetDefMixin);
+Blockly.Extensions.register("primitive_initialize", primitiveInitialize);
 Blockly.Extensions.registerMixin("primitive_onchange", primitiveOnChangeMixin);
 Blockly.Extensions.registerMixin("primitive_updatetype", primitiveUpdateTypeMixin);
 Blockly.Extensions.registerMixin("primitive_contextmenu", primitiveContextMenuMixin);
 
 Blockly.Extensions.register("placeholder_initialize", placeholderInitialize);
-Blockly.Extensions.registerMixin("placeholder_getdef", placeholderGetDefMixin);
 Blockly.Extensions.registerMixin("placeholder_updatetype", placeholderUpdateTypeMixin);
 Blockly.Extensions.registerMixin("placeholder_onchange", placeholderOnChangeMixin);
 
 Blockly.Extensions.register("list_initialize", listInitialize);
-Blockly.Extensions.registerMixin("list_getdef", listGetDefMixin);
 Blockly.Extensions.registerMixin("list_onchange", listOnChangeMixin);
 Blockly.Extensions.registerMixin("list_updatetype", listUpdateTypeMixin);
 
 Blockly.Extensions.register("tuple_initialization", tupleInitialize);
-Blockly.Extensions.registerMixin("tuple_getdef", tupleGetDefMixin);
 Blockly.Extensions.registerMixin("tuple_onchange", tupleOnChangeMixin);
 Blockly.Extensions.registerMixin("tuple_updatetype", tupleUpdateTypeMixin);
 Blockly.Extensions.registerMutator(
@@ -69,6 +65,8 @@ Blockly.Extensions.registerMutator(
 Blockly.Extensions.register("types_post_initialization", updateShapeExtension);
 Blockly.Extensions.registerMixin("disconnect_blocks_mixin", disconnectBlocksMixin);
 Blockly.Extensions.registerMixin("cascade_updates_mixin", cascadeUpdatesMixin);
+Blockly.Extensions.registerMixin("get_target_workspace_mixin", getTargetWorkspaceMixin);
+Blockly.Extensions.registerMixin("get_type_model_mixin", getModelMixin);
 
 Blockly.Extensions.register("data_constructor_initialization", dataConstructorUpdateShape);
 Blockly.Extensions.register("data_constructor_initalize_model", dataConstructorInitalizeModel);
