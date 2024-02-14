@@ -1,6 +1,5 @@
 import { Events } from "blockly";
 import { DataConstructorChangeReturn } from "../events/dc_change.js";
-import { DataConstructorDelete } from "../events/dc_delete.js";
 import { TypeDelete } from "../events/type_delete.js";
 
 export function isBlockChange(event: Events.Abstract): event is Events.BlockChange {
@@ -21,10 +20,6 @@ export function isBlockDelete(event: Events.Abstract): event is Events.BlockDele
 
 export function isDataConsChange(event: Events.Abstract): event is DataConstructorChangeReturn {
 	return event.type == "dc_change";
-}
-
-export function isDataConsDelete(event: Events.Abstract): event is DataConstructorDelete {
-	return event.type == "dc_delete";
 }
 
 export function isTypeDelete(event: Events.Abstract): event is TypeDelete {

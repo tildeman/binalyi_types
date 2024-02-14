@@ -28,6 +28,7 @@ function debugModelCallback(block: DataConstructorBlock) {
 
 export const dataConstructorContextMenuMixin = {
 	customContextMenu: function(this: DataConstructorBlock, options: Array<ContextMenuOption | LegacyContextMenuOption>) {
+		if (this.isInFlyout) return;
 		options.push({
 			text: "Delete Type",
 			enabled: true,

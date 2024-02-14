@@ -9,11 +9,14 @@ export const DataConstructorMutator = {
 	itemCount_: 2,
 
 	saveExtraState: function(this: DataConstructorBlock) {
-		return { "itemCount": this.itemCount_ };
+		return {
+			itemCount: this.itemCount_,
+			id: this.getDataConstructorModel()?.getId()
+		};
 	},
 
 	loadExtraState: function(this: DataConstructorBlock, state: any) {
-		this.itemCount_ = state["itemCount"];
+		this.itemCount_ = state.itemCount;
 		this.updateShape_();
 	},
 
@@ -47,9 +50,7 @@ export const DataConstructorMutator = {
 
 		for (let i = 0; i < this.itemCount_; ++i) {
 			const connection = this.getInput("DATA" + i)?.connection?.targetConnection;
-			if (connection && connections.indexOf(connection) === -1) {
-				connection.disconnect();
-			}
+			if (connection && connections.indexOf(connection) === -1) connection.disconnect();
 		}
 		this.itemCount_ = connections.length;
 		this.updateShape_();
@@ -97,7 +98,6 @@ export const DataConstructorMutator = {
 					
 				}
 			}
-
 		}
 
 		for (let i = this.itemCount_; this.getInput("DATA" + i); ++i) {

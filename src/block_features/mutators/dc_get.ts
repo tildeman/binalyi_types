@@ -21,19 +21,13 @@ export const DataConstructorGetMutator = {
 	updateShape_: function(this: DataConstructorGetBlock, newName?: string) {
 		const argumentTypes = this.getDataConstructorModel()?.getArgTypes() || [];
 		const name = newName || this.getFieldValue("NAME");
+		const empty = this.getInput("EMPTY")
 
 		this.setFieldValue(name, "NAME");
-		if (argumentTypes.length && this.getInput("EMPTY")) {
-			this.removeInput("EMPTY");
-		}
+		if (argumentTypes.length && empty) this.removeInput("EMPTY");
 		else if (!argumentTypes.length) {
-			if (!this.getInput("EMPTY")) {
-				this.appendDummyInput("EMPTY")
-					.appendField(name, "NAME");
-			}
-			else {
-				this.setFieldValue(name, "NAME");
-			}
+			if (!empty) this.appendDummyInput("EMPTY").appendField(name, "NAME");
+			else this.setFieldValue(name, "NAME");
 		}
 
 		for (let i = 0; i < argumentTypes.length; ++i) {
@@ -42,9 +36,7 @@ export const DataConstructorGetMutator = {
 				input = this
 					.appendValueInput("DATA" + i)
 					.setAlign(inputs.Align.RIGHT);
-				if (i === 0) {
-					input.appendField(name, "NAME");
-				}
+				if (i === 0) input.appendField(name, "NAME");
 			}
 			input.setCheck(identifyModelParams(argumentTypes[i]));
 		}

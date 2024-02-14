@@ -9,13 +9,11 @@ export const TupleTypeMutator = {
 	itemCount_: 2,
 
 	saveExtraState: function (this: TupleBlock) {
-		return {
-			itemCount: this.itemCount_,
-		};
+		return { itemCount: this.itemCount_ };
 	},
 
 	loadExtraState: function (this: TupleBlock, state: any) {
-		this.itemCount_ = state["itemCount"];
+		this.itemCount_ = state.itemCount;
 		this.updateShape_();
 	},
 
@@ -56,9 +54,7 @@ export const TupleTypeMutator = {
 		this.itemCount_ = connections.length;
 		this.updateShape_();
 
-		for (let i = 0; i < this.itemCount_; ++i) {
-			connections[i]?.reconnect(this, "ADD" + i);
-		}
+		for (let i = 0; i < this.itemCount_; ++i) connections[i]?.reconnect(this, "ADD" + i);
 	},
 
 	saveConnections: function (this: TupleBlock, containerBlock: Block) {
@@ -103,8 +99,6 @@ export const TupleTypeMutator = {
 			}
 		}
 
-		for (let i = this.itemCount_; this.getInput("ADD" + i); ++i) {
-			this.removeInput("ADD" + i);
-		}
+		for (let i = this.itemCount_; this.getInput("ADD" + i); ++i) this.removeInput("ADD" + i);
 	},
 };

@@ -1,9 +1,9 @@
 import { Block, Events, common } from "blockly";
-import * as blockFilters from "../utilities/blocktype_filter.js";
-import { traverseState } from "../utilities/traverse_state.js";
-import { isBlockCreate } from "../utilities/event_filter.js";
-import { enumerateInputState } from "../utilities/mutator_input_enumerator.js";
-import { globalBaseModels } from "../models/observable_type_model.js";
+import * as blockFilters from "../../utilities/blocktype_filter.js";
+import { traverseState } from "../../utilities/traverse_state.js";
+import { isBlockCreate } from "../../utilities/event_filter.js";
+import { enumerateInputState } from "../../utilities/mutator_input_enumerator.js";
+import { globalBaseModels } from "../../models/observable_type_model.js";
 
 function castGetModel(block: Block | null) {
 	if (blockFilters.isGetModelBlock(block)) return block;

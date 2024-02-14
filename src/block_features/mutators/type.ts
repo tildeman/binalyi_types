@@ -1,6 +1,5 @@
-import { TypeWorkspace } from "../../types/workspace_extensions.js";
-import { TypeBlock } from "../types/type_block.js";
 import { inputs } from "blockly";
+import { TypeBlock } from "../types/type_block.js";
 
 export type TypeMutatorType = typeof TypeDefMutator;
 
@@ -24,12 +23,9 @@ export const TypeDefMutator = {
 		const empty = Boolean(this.getInput("EMPTY"));
 		const tpLength = typePlaceholders.length;
 
-		if (tpLength && empty) {
-			this.removeInput("EMPTY");
-		}
+		if (tpLength && empty) this.removeInput("EMPTY");
 		else if ((!tpLength) && (!empty)) {
-			this.appendDummyInput("EMPTY")
-				.appendField("type " + name, "TYPENAME");
+			this.appendDummyInput("EMPTY").appendField("type " + name, "TYPENAME");
 		}
 
 		for (let i = 0; i < tpLength; ++i) {
@@ -37,16 +33,12 @@ export const TypeDefMutator = {
 				const input = this.appendValueInput("DATA" + i)
 					  .setAlign(inputs.Align.RIGHT)
 					  .setCheck("Type");
-				if (i === 0) {
-					input.appendField("type " + name + " with:", "TYPENAME");
-				}
+				if (i === 0) input.appendField("type " + name + " with:", "TYPENAME");
 				input.appendField(typePlaceholders[i], "NAME" + i);
 			}
 			else this.setFieldValue(typePlaceholders[i], "NAME" + i);
 		}
 
-		for (let i = tpLength; this.getInput("DATA" + i); ++i) {
-			this.removeInput("DATA" + i);
-		}
+		for (let i = tpLength; this.getInput("DATA" + i); ++i) this.removeInput("DATA" + i);
 	}
 };
