@@ -1,5 +1,5 @@
 import { globalBaseModels } from "../../../models/observable_type_model.js";
-import { DataConstructorChangeReturn } from "../../../events/dc_change.js";
+import { DataConstructorChange } from "../../../events/dc_change.js";
 import { ForceCapitalize } from "../../../utilities/force_capitalize.js";
 import { isGetModelBlock } from "../../../utilities/blocktype_filter.js";
 import { DataConstructorBlock } from "../../types/dc_def_block.js";
@@ -36,6 +36,6 @@ export const dataConstructorUpdateTypeMixin = {
 				model.addArgTypes(globalBaseModels.UNIT);
 			}
 		}
-		Events.fire(new DataConstructorChangeReturn(this.workspace, model, null));
+		Events.fire(new DataConstructorChange(this.workspace, model, null));
 	}
 };

@@ -1,12 +1,11 @@
-import { ButtonInfo, FlyoutItemInfo, FlyoutItemInfoArray } from "blockly/core/utils/toolbox.js";
+import { FlyoutButton, WorkspaceSvg, utils } from "blockly";
 import { TypeWorkspace, TypeWorkspaceSvg } from "../types/workspace_extensions.js";
 import { ITypeModel } from "../models/interfaces/i_type_model.js";
 import { ObservableTypeModel } from "../models/observable_type_model.js";
 import { vomitMap } from "./debug_map.js";
-import { FlyoutButton, WorkspaceSvg, utils } from "blockly";
 
-function typeFlyoutBlocks(workspace: TypeWorkspace): FlyoutItemInfoArray {
-	const jsonList: FlyoutItemInfo[] = [
+function typeFlyoutBlocks(workspace: TypeWorkspace): utils.toolbox.FlyoutItemInfoArray {
+	const jsonList: utils.toolbox.FlyoutItemInfoArray = [
 		{
 			"kind": "block",
 			"type": "types_primitive"
@@ -98,19 +97,16 @@ function typeFlyoutBlocks(workspace: TypeWorkspace): FlyoutItemInfoArray {
 		const typeMap = workspace.getDataTypeMap().getTypeMap();
 		for (const [typeId, typeModel] of typeMap) {
 			const typePh = typeModel.getTypePlaceholders();
-			jsonList.push(
-				{
-					"kind": "block",
-					"type": "types_type",
-					"fields": {
-						"TYPENAME": "type " + typeModel.getName() + (typePh.length ? " with:" : "")
-					},
-					"extraState": {
-						"name": typeModel.getName()
-					}
+			jsonList.push({
+				"kind": "block",
+				"type": "types_type",
+				"fields": {
+					"TYPENAME": "type " + typeModel.getName() + (typePh.length ? " with:" : "")
 				},
-				{ "kind": "label", "text": typeModel.getName() }
-			);
+				"extraState": {
+					"name": typeModel.getName()
+				}
+			});
 		}
 
 		jsonList.push(
@@ -120,26 +116,24 @@ function typeFlyoutBlocks(workspace: TypeWorkspace): FlyoutItemInfoArray {
 		);
 		const dataConsMap = workspace.getDataTypeMap().getDataConsMap();
 		for (const [dataConsId, dataConsModel] of dataConsMap) {
-			jsonList.push(
-				{
-					"kind": "block",
-					"type": "types_dc_get",
-					"fields": {
-						"NAME": dataConsModel.getName()
-					},
-					"extraState": {
-						"name": dataConsModel.getName()
-					}
+			jsonList.push({
+				"kind": "block",
+				"type": "types_dc_get",
+				"fields": {
+					"NAME": dataConsModel.getName()
+				},
+				"extraState": {
+					"name": dataConsModel.getName()
 				}
-			);
+			});
 		}
 	}
 	return jsonList;
 }
 
 function updateDynamicCategory(workspace: TypeWorkspace): utils.toolbox.FlyoutDefinition {
-	let toolbox: FlyoutItemInfoArray = [];
-	const button: ButtonInfo = {
+	let toolbox: utils.toolbox.FlyoutItemInfoArray = [];
+	const button: utils.toolbox.ButtonInfo = {
 		"kind": "button",
 		"text": "Create type...",
 		"callbackkey": "DATATYPE"
@@ -147,7 +141,7 @@ function updateDynamicCategory(workspace: TypeWorkspace): utils.toolbox.FlyoutDe
 	toolbox.push(button);
 
 	// Add extra debug button if needed
-	const debug: ButtonInfo = {
+	const debug: utils.toolbox.ButtonInfo = {
 		"kind": "button",
 		"text": "Debug models",
 		"callbackkey": "DEBUG_TYPES"

@@ -3,7 +3,7 @@ import { isBlockDelete } from "../../utilities/event_filter.js";
 import { TypeWorkspace } from "../../types/workspace_extensions.js";
 import { DataConstructorGetBlock } from "../types/dc_get_block.js";
 import { ObservableDataConstructorModel } from "../../index.js";
-import { DataConstructorChangeReturn } from "../../events/dc_change.js";
+import { DataConstructorChange } from "../../events/dc_change.js";
 
 export function blockDeleteListener(e: Events.Abstract) {
 	const workspace = common.getWorkspaceById(e.workspaceId || "") as TypeWorkspace;
@@ -26,6 +26,6 @@ export function blockDeleteListener(e: Events.Abstract) {
 		}
 
 		const dummyModel = new ObservableDataConstructorModel("DUMMY", dcParentType, [], modelId);
-		Events.fire(new DataConstructorChangeReturn(workspace, dummyModel, null));
+		Events.fire(new DataConstructorChange(workspace, dummyModel, null));
 	}
 }

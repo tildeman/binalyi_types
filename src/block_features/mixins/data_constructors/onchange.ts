@@ -1,8 +1,8 @@
 import { Events } from "blockly";
-import { isBlockChange, isBlockMove, isTypeDelete } from "../../../utilities/event_filter.js";
+import { isBlockChange, isBlockMove } from "../../../utilities/event_filter.js";
 import { parseInputName } from "../../../utilities/mutator_input_name_parser.js";
 import { globalBaseModels } from "../../../models/observable_type_model.js";
-import { DataConstructorChangeReturn } from "../../../events/dc_change.js";
+import { DataConstructorChange } from "../../../events/dc_change.js";
 import { isGetModelBlock } from "../../../utilities/blocktype_filter.js";
 import { DataConstructorBlock } from "../../types/dc_def_block.js";
 
@@ -10,10 +10,6 @@ export type DataConstructorOnChangeMixin = typeof dataConstructorOnChangeMixin;
 
 export const dataConstructorOnChangeMixin = {
 	onchange(this: DataConstructorBlock, p1: Events.Abstract) {
-		if (isTypeDelete(p1) && p1.type_.getId() === this.getDataConstructorModel()?.getParentType().getId()) {
-			this.isolate();
-			this.dispose(false);
-		}
 		if (isBlockChange(p1) && p1.blockId === this.id && p1.name === "TYPE") {
 			const newModel = this.workspace.getDataTypeMap().getTypeMap().get(p1.newValue as string);
 			if (newModel) this.getDataConstructorModel()?.setParentType(newModel);
@@ -47,6 +43,6 @@ export const dataConstructorOnChangeMixin = {
 		else {
 			dataconstructorModelData[modelIndex] = globalBaseModels.UNIT;
 		}
-		Events.fire(new DataConstructorChangeReturn(this.workspace, model, null));
+		Events.fire(new DataConstructorChange(this.workspace, model, null));
 	}
 };

@@ -1,7 +1,7 @@
 import { ContextMenuOption, LegacyContextMenuOption } from "blockly/core/contextmenu_registry.js";
 import { GetModelBlock } from "../../types/block_variants.js";
 
-export type PrimitiveContextMenuMixin = typeof primitiveContextMenuMixin;
+export type DebugTypeMenuMixin = typeof debugTypeMenuMixin;
 
 function debugModelCallback(block: GetModelBlock) {
 	return function() {
@@ -9,7 +9,7 @@ function debugModelCallback(block: GetModelBlock) {
 	}
 }
 
-export const primitiveContextMenuMixin = {
+export const debugTypeMenuMixin = {
 	customContextMenu: function(this: GetModelBlock, options: Array<ContextMenuOption | LegacyContextMenuOption>) {
 		options.push({
 			text: "Debug model",

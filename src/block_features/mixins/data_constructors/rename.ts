@@ -1,6 +1,6 @@
 import { Events } from "blockly";
 import { DataConstructorBlock } from "../../types/dc_def_block.js";
-import { DataConstructorChangeReturn } from "../../../events/dc_change.js";
+import { DataConstructorChange } from "../../../events/dc_change.js";
 
 export type DataConstructorRenameMixin = typeof dataConstructorRenameMixin;
 
@@ -11,7 +11,7 @@ export const dataConstructorRenameMixin = {
 		if (!model) return;
 		if (oldName === this.getFieldValue("NAME")) {
 			model.setName(newName);
-			Events.fire(new DataConstructorChangeReturn(this.workspace, model, null));
+			Events.fire(new DataConstructorChange(this.workspace, model, null));
 		}
 	}
 };

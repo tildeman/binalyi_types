@@ -42,7 +42,7 @@ export const blockDefs: FBlockDefinition[] = [
 			"cascade_updates_mixin",
 			"list_onchange",
 			"list_updatetype",
-			"primitive_contextmenu"
+			"debug_type_menu"
 		],
 		style: "loop_blocks",
 		tooltip: "The list of whatever type.",
@@ -61,7 +61,7 @@ export const blockDefs: FBlockDefinition[] = [
 			"cascade_updates_mixin",
 			"tuple_onchange",
 			"tuple_updatetype",
-			"primitive_contextmenu"
+			"debug_type_menu"
 		],
 		mutator: "tuple_type_mutator",
 		helpUrl: ""
@@ -119,14 +119,14 @@ export const blockDefs: FBlockDefinition[] = [
 		output: "Type",
 		style: "loop_blocks",
 		extensions: [
-			"types_tooltip",
+			"primitive_tooltip",
 			"get_type_model_mixin",
 			"primitive_initialize",
 			"get_target_workspace_mixin",
 			"cascade_updates_mixin",
 			"primitive_onchange",
 			"primitive_updatetype",
-			"primitive_contextmenu"
+			"debug_type_menu"
 		],
 		helpUrl: ""
 	},
@@ -173,7 +173,7 @@ export const blockDefs: FBlockDefinition[] = [
 			"cascade_updates_mixin",
 			"placeholder_updatetype",
 			"placeholder_onchange",
-			"primitive_contextmenu"
+			"debug_type_menu"
 		],
 		style: "loop_blocks",
 		tooltip: "A type placeholder to be used in templates.",
@@ -194,10 +194,10 @@ export const blockDefs: FBlockDefinition[] = [
 			}
 		],
 		extensions: [
-			"data_constructor_def_get_def_mixin",
+			"dc_def_get_def_mixin",
 			"get_target_workspace_mixin",
-			"data_constructor_initialization",
-			"data_constructor_initalize_model",
+			"dc_initialization",
+			"dc_initialize_model",
 			"dc_context_menu_mixin",
 			"disconnect_blocks_mixin",
 			"dc_updatetype_mixin",
@@ -254,7 +254,7 @@ export const blockDefs: FBlockDefinition[] = [
 		output: "Type",
 		style: "loop_blocks",
 		extensions: [
-			"data_constructor_caller_get_def_mixin",
+			"dc_caller_get_def_mixin",
 			"get_target_workspace_mixin",
 			"disconnect_blocks_mixin",
 			"dc_context_menu_mixin",

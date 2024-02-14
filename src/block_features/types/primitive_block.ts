@@ -1,5 +1,5 @@
 import { Block } from "blockly";
-import { PrimitiveContextMenuMixin } from "../mixins/contextmenu.js";
+import { DebugTypeMenuMixin } from "../mixins/contextmenu.js";
 import { PrimitiveUpdateTypeMixin } from "../mixins/primitives/updatetype.js";
 import { PrimitiveOnChangeMixin } from "../mixins/primitives/onchange.js";
 import { TypeWorkspace } from "../../types/workspace_extensions.js";
@@ -12,7 +12,7 @@ interface IPrimitiveMutator
 	extends PrimitiveOnChangeMixin,
 			GetModelMixin,
 			PrimitiveUpdateTypeMixin,
-			PrimitiveContextMenuMixin,
+			DebugTypeMenuMixin,
 			CascadeUpdatesMixin,
 			GetTargetWorkspaceMixin {
 	workspace: TypeWorkspace; // We can safely assume that the workspace has extra methods for types

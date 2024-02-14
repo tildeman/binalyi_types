@@ -13,11 +13,11 @@ import { TypeWorkspace } from '../index.js';
 /**
  * Notifies listeners that a data constructor's return type/status has changed.
  */
-export class DataConstructorChangeReturn extends DataConstructorBase {
+export class DataConstructorChange extends DataConstructorBase {
 	static readonly TYPE = 'dc_change';
 
 	/** A string used to check the type of the event. */
-	type = DataConstructorChangeReturn.TYPE;
+	type = DataConstructorChange.TYPE;
 
 	/**
 	 * Constructs the data constructor change event.
@@ -51,8 +51,8 @@ export class DataConstructorChangeReturn extends DataConstructorBase {
 	 *
 	 * @returns JSON representation.
 	 */
-	toJson(): DataConstructorChangeReturnJson {
-		const json = super.toJson() as DataConstructorChangeReturnJson;
+	toJson(): DataConstructorChangeJson {
+		const json = super.toJson() as DataConstructorChangeJson;
 		json['oldTypes'] = this.oldTypes;
 		return json;
 	}
@@ -66,9 +66,9 @@ export class DataConstructorChangeReturn extends DataConstructorBase {
 	 * @internal
 	 */
 	static fromJson(
-		json: DataConstructorChangeReturnJson,
+		json: DataConstructorChangeJson,
 		workspace: TypeWorkspace,
-	): DataConstructorChangeReturn {
+	): DataConstructorChange {
 		const model = workspace.getDataTypeMap().getDataConsMap().get(json['dataConsId']);
 		if (!model) {
 			throw new Error(
@@ -76,16 +76,16 @@ export class DataConstructorChangeReturn extends DataConstructorBase {
 					'target data constructor does not exist',
 			);
 		}
-		return new DataConstructorChangeReturn(workspace, model, json['oldTypes']);
+		return new DataConstructorChange(workspace, model, json['oldTypes']);
 	}
 }
 
-export interface DataConstructorChangeReturnJson extends DataConstructorBaseJson {
+export interface DataConstructorChangeJson extends DataConstructorBaseJson {
 	oldTypes: string[] | null;
 }
 
 Blockly.registry.register(
 	Blockly.registry.Type.EVENT,
-	DataConstructorChangeReturn.TYPE,
-	DataConstructorChangeReturn,
+	DataConstructorChange.TYPE,
+	DataConstructorChange,
 );
