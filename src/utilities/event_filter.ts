@@ -17,6 +17,10 @@ export function isBlockDelete(event: Events.Abstract): event is Events.BlockDele
 	return event.type == Events.BLOCK_DELETE;
 }
 
+export function isFinishedLoading(event: Events.Abstract): event is Events.FinishedLoading {
+	return event.type == Events.FINISHED_LOADING;
+}
+
 export function isDataConsChange(event: Events.Abstract): event is DataConstructorChange {
 	return event.type == "dc_change";
 }

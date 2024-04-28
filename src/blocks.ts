@@ -39,10 +39,10 @@ import { typeRefGetDefMixin               } from "./block_features/mixins/types/
 import { typeGetOnChangeMixin             } from "./block_features/mixins/types/onchange.js";
 import { typeContextMenuMixin             } from "./block_features/mixins/types/contextmenu.js";
 
-import { TupleTypeMutator          } from "./block_features/mutators/product_type.js";
-import { DataConstructorMutator    } from "./block_features/mutators/dc_def.js";
-import { DataConstructorGetMutator } from "./block_features/mutators/dc_get.js";
-import { TypeDefMutator            } from "./block_features/mutators/type.js";
+import { TupleTypeMutator                 } from "./block_features/mutators/product_type.js";
+import { DataConstructorMutator           } from "./block_features/mutators/dc_def.js";
+import { DataConstructorGetMutator        } from "./block_features/mutators/dc_get.js";
+import { TypeDefMutator                   } from "./block_features/mutators/type.js";
 
 export const blocks = common.createBlockDefinitionsFromJsonArray(BLOCK_DEFINITIONS);
 const builtTooltips = Extensions.buildTooltipForDropdown("TYPE", primitiveTooltips);

@@ -50,7 +50,14 @@ export function blockCreateListener(e: Events.Abstract) {
 			block.updateType(childBlocks);
 		}
 		else if (blockFilters.isDataConstructorBlock(block)) {
+			console.log(state.extraState);
 			block.getDataConstructorModel()?.setArgTypes(globalBaseModels.UNIT, globalBaseModels.UNIT);
+		}
+		else if (blockFilters.isDataConstructorGetBlock(block)) {
+			console.log(state.extraState);
+		}
+		else if (blockFilters.isTypeBlock(block)) {
+			console.log(state.extraState);
 		}
 	}
 }

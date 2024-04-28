@@ -31,6 +31,10 @@ export function isDataConstructorGetBlock(block: Block): block is DataConstructo
 	return block.type == "types_dc_get";
 }
 
+export function isTypeBlock(block: Block): block is DataConstructorGetBlock {
+	return block.type == "types_type";
+}
+
 export function isGetModelBlock(block: Block | null | undefined): block is GetModelBlock {
 	if (!block) return false;
 	return ("getModel" in block) && (block.getModel != null) && (block.getModel != undefined);

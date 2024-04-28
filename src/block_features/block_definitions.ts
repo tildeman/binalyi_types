@@ -248,7 +248,7 @@ export const blockDefs: FBlockDefinition[] = [
 		  },
 		  {
 			type: "input_dummy",
-			name: "EMPTY"
+			name: "PROPERTIES"
 		  }
 		],
 		output: "Type",

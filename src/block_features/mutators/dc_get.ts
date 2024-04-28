@@ -37,30 +37,43 @@ function identifyModelParams(model: ITypeModel | null) : (string | string[] | nu
 }
 
 export const DataConstructorGetMutator = {
+	itemCount_: null as (null | number),
+
+	createInputs(this: DataConstructorGetBlock, itemCount: number, name: string) {
+		console.log("ci", name, this.getFieldValue("NAME"));
+		for (let i = 0; i < itemCount; ++i) {
+			const input = this
+				.appendValueInput("DATA" + i)
+				.setAlign(inputs.Align.RIGHT);
+		}
+	},
+
 	saveExtraState: function(this: DataConstructorGetBlock) {
+		console.log("save", this.getFieldValue("NAME"), this.itemCount_);
 		const state = Object.create(null);
 		const model = this.getDataConstructorModel();
-		if (!model) state.name = this.getFieldValue("NAME");
-		else state.name = model.getName();
+		if (!model) {
+			state.name = this.getFieldValue("NAME");
+			state.itemCount = this.itemCount_;
+		}
+		else {
+			state.name = model.getName();
+			state.itemCount = model.getArgTypes().length;
+		}
 		return state;
 	},
 
 	loadExtraState: function(this: DataConstructorGetBlock, state: any) {
+		// console.log("load", state.itemCount);
 		if (!this.model_) this.model_ = this.findDataConsModel(state.name);
-		this.updateShape_(state.name);
+		if (!this.getDataConstructorModel()) this.createInputs(state.itemCount, state.name);
+		else this.updateShape_(state.name);
 	},
 
 	updateShape_: function(this: DataConstructorGetBlock, newName?: string) {
 		const argumentTypes = this.getDataConstructorModel()?.getArgTypes() || [];
 		const name = newName || this.getFieldValue("NAME");
-		const empty = this.getInput("EMPTY")
-
 		this.setFieldValue(name, "NAME");
-		if (argumentTypes.length && empty) this.removeInput("EMPTY");
-		else if (!argumentTypes.length) {
-			if (!empty) this.appendDummyInput("EMPTY").appendField(name, "NAME");
-			else this.setFieldValue(name, "NAME");
-		}
 
 		for (let i = 0; i < argumentTypes.length; ++i) {
 			let input = this.getInput("DATA" + i);
@@ -68,7 +81,6 @@ export const DataConstructorGetMutator = {
 				input = this
 					.appendValueInput("DATA" + i)
 					.setAlign(inputs.Align.RIGHT);
-				if (i === 0) input.appendField(name, "NAME");
 			}
 			input.setCheck(identifyModelParams(argumentTypes[i]));
 		}
@@ -76,5 +88,7 @@ export const DataConstructorGetMutator = {
 		for (let i = argumentTypes.length; this.getInput("DATA" + i); ++i) {
 			this.removeInput("DATA" + i);
 		}
+
+		this.itemCount_ = argumentTypes.length;
 	}
 }

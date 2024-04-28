@@ -38,8 +38,7 @@ function typeFlyoutBlocks(workspace: TypeWorkspace): utils.toolbox.FlyoutItemInf
 						"fields": {
 							"TYPE": "Char"
 						}
-					},
-					"shadow": undefined
+					}
 				}
 			}
 		},

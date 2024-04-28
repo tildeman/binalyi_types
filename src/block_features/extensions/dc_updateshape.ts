@@ -22,14 +22,11 @@ function rename(this: Field, name: string): string {
 // Blockly developers call this a factory, so you can call this retrieveTypeListFactory
 function retrieveTypeList(workspace: TypeWorkspace): MenuGenerator {
 	return function() {
-		if (workspace.getDataTypeMap().getTypeMap) {
-			const menu: [string, string][] = [];
-			for (const [key, value] of workspace.getDataTypeMap().getTypeMap()) {
-				menu.push([value.getName(), key]);
-			}
-			return menu;
+		const menu: [string, string][] = [];
+		for (const [key, value] of workspace.getDataTypeMap().getTypeMap()) {
+			menu.push([value.getName(), key]);
 		}
-		return [["Undefined", "Undefined"]];
+		return menu.length ? menu : [["Undefined", "Undefined"]];
 	}
 }
 

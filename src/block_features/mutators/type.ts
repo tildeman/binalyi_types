@@ -1,5 +1,6 @@
 import { inputs } from "blockly";
 import { TypeBlock } from "../types/type_block.js";
+import { ObservableTypeModel } from "../../models/observable_type_model.js";
 
 export type TypeMutatorType = typeof TypeDefMutator;
 
@@ -24,7 +25,7 @@ export const TypeDefMutator = {
 		const tpLength = typePlaceholders.length;
 
 		if (tpLength && empty) this.removeInput("EMPTY");
-		else if ((!tpLength) && (!empty)) {
+		else if (!(tpLength || empty)) {
 			this.appendDummyInput("EMPTY").appendField("type " + name, "TYPENAME");
 		}
 
